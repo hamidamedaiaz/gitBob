@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {debounceTime, filter, take} from 'rxjs/operators';
+import {debounceTime, filter, take, distinctUntilChanged} from 'rxjs/operators';
 
 import {QuizBuilderService} from '../../../services/quiz-builder.service';
 import {ThemeService} from '../../../services/theme.service';
@@ -57,12 +57,19 @@ export class CreationContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Initialize form first
+    // ✅ CORRECTION : Initialiser le formulaire avec des valeurs par défaut stables
     this.generalInfoForm = this.fb.group({
       name: ['', Validators.required],
       theme: ['', Validators.required],
       numberOfQuestions: [1, [Validators.required, Validators.min(1), Validators.max(10)]]
     });
+
+    // ✅ Désactiver temporairement les événements pendant l'initialisation
+    this.generalInfoForm.patchValue({
+      name: '',
+      theme: '',
+      numberOfQuestions: 1
+    }, { emitEvent: false });
 
     // Get navigation state
     const nav = this.router.getCurrentNavigation();
@@ -73,10 +80,12 @@ export class CreationContainerComponent implements OnInit {
     // Load themes FIRST and wait for completion
     this.loadThemesAndInitialize(selectedThemeId);
 
-    // Set up other subscriptions
-    this.setupFormSubscriptions();
-    this.setupConfigSubscription();
-    this.setupRouteSubscription();
+    // ✅ Set up subscriptions AFTER form initialization
+    setTimeout(() => {
+      this.setupFormSubscriptions();
+      this.setupConfigSubscription();
+      this.setupRouteSubscription();
+    }, 0);
   }
 
   private loadThemesAndInitialize(selectedThemeId?: string): void {
@@ -95,8 +104,8 @@ export class CreationContainerComponent implements OnInit {
           const foundTheme = this.themes.find(t => t.id === selectedThemeId);
           if (foundTheme) {
             console.log('Found theme, setting form value:', foundTheme.title);
-            // Force update the form control
-            this.generalInfoForm.get('theme')?.setValue(selectedThemeId);
+            // ✅ CORRECTION : Utiliser emitEvent: false pour éviter les boucles
+            this.generalInfoForm.get('theme')?.setValue(selectedThemeId, { emitEvent: false });
             console.log('Form theme value after set:', this.generalInfoForm.get('theme')?.value);
           } else {
             console.warn('Selected theme not found:', selectedThemeId);
@@ -115,21 +124,35 @@ export class CreationContainerComponent implements OnInit {
     });
   }
 
+  // ✅ CORRECTION : Utiliser distinctUntilChanged pour éviter les boucles infinies
   private setupFormSubscriptions(): void {
-    // Set up form value changes subscription
     this.generalInfoForm.valueChanges
-      .pipe(debounceTime(300))
+      .pipe(
+        debounceTime(500), // ✅ Augmenter le délai pour éviter les déclenchements rapides
+        distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr))
+      )
       .subscribe(v => {
-        this.quizBuilderService.setCreationData({
-          name: v.name,
-          theme: v.theme,
-          questions: this.questions
-        });
+        // ✅ Ne sauvegarder que si les valeurs ont vraiment changé et sont valides
+        if (v && (v.name || v.theme || (v.numberOfQuestions && v.numberOfQuestions > 0))) {
+          this.quizBuilderService.setCreationData({
+            name: v.name,
+            theme: v.theme,
+            questions: this.questions
+          });
+        }
       });
 
-    // Set up number of questions changes
+    // ✅ CORRECTION : Éviter les changements non désirés du nombre de questions
     this.generalInfoForm.controls['numberOfQuestions'].valueChanges
-      .subscribe(count => this.updateQuestionsArray(count));
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(count => {
+        if (count && count > 0 && count !== this.questions.length) {
+          this.updateQuestionsArray(count);
+        }
+      });
   }
 
   private setupConfigSubscription(): void {
@@ -147,25 +170,29 @@ export class CreationContainerComponent implements OnInit {
     });
   }
 
+  // ✅ CORRECTION : Améliorer la méthode initializeQuizBuilderData
   private initializeQuizBuilderData(): void {
     this.quizBuilderService.creationData$
       .pipe(
         debounceTime(0),
-        filter(() => this.themesLoaded) // Only proceed when themes are loaded
+        filter(() => this.themesLoaded),
+        distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr))
       )
       .subscribe(saved => {
-        if (saved.name) {
+        if (saved.name && !this.generalInfoForm.get('name')?.value) {
+          // ✅ CORRECTION : Utiliser patchValue avec emitEvent: false pour éviter les boucles
           this.generalInfoForm.patchValue({
             name: saved.name,
             theme: saved.theme,
             numberOfQuestions: saved.questions?.length || 1
-          });
+          }, { emitEvent: false });
 
-          if (saved.questions) {
+          if (saved.questions && this.questions.length === 0) {
             this.questions = saved.questions;
           }
         }
 
+        // ✅ Initialiser les questions seulement si nécessaire
         if (this.questions.length === 0) {
           const count = this.generalInfoForm.controls['numberOfQuestions'].value || 1;
           this.questions = Array.from({length: count}, () => this.createQuestion());
@@ -197,8 +224,15 @@ export class CreationContainerComponent implements OnInit {
     };
   }
 
+  // ✅ CORRECTION : Améliorer la gestion des changements de nombre de questions
   updateQuestionsArray(count: number): void {
+    if (!count || count < 1) return;
+    
     const len = this.questions.length;
+    
+    // ✅ CORRECTION : Éviter les modifications inutiles
+    if (count === len) return;
+    
     if (count > len) {
       for (let i = len; i < count; i++) {
         this.questions.push(this.createQuestion());
@@ -206,6 +240,8 @@ export class CreationContainerComponent implements OnInit {
     } else if (count < len) {
       this.questions.splice(count, len - count);
     }
+    
+    console.log(`Questions array updated: ${len} -> ${count}`);
   }
 
   canProceedToNextStep(): boolean {
@@ -305,8 +341,6 @@ export class CreationContainerComponent implements OnInit {
 
   // IMPROVED getThemeName function
   getThemeName(id: string): string {
-
-
     // Handle empty or invalid ID
     if (!id || id.trim() === '') {
       return 'Aucun thème sélectionné';
@@ -319,7 +353,6 @@ export class CreationContainerComponent implements OnInit {
 
     // Check if themes array is empty
     if (!this.themes || this.themes.length === 0) {
-
       return 'Aucun thème disponible';
     }
 
@@ -328,19 +361,15 @@ export class CreationContainerComponent implements OnInit {
 
     // If not found and ID looks like a timestamp, try finding by converted string
     if (!theme && /^\d+$/.test(id)) {
-
       theme = this.themes.find(t => String(t.id) === String(id));
     }
 
     if (theme) {
-
       return theme.title;
     } else {
       if (this.themes.length > 0) {
-
         return `${this.themes[0].title} (thème par défaut)`;
       }
-
       return `Thème introuvable (${id})`;
     }
   }

@@ -83,12 +83,16 @@ export class ThemeSelectorComponent implements ControlValueAccessor, OnInit, OnD
     });
   }
 
+  // ✅ CORRECTION : Ne pas déclencher onChange lors de writeValue
   writeValue(value: string): void {
     console.log('Theme selector writeValue called with:', value);
     if (value !== undefined && value !== this.value) {
       this.value = value;
       this.selectedTheme = this.themes.find(t => t.id === value);
       console.log('Theme selector value set to:', value, 'Theme:', this.selectedTheme?.title);
+      
+      // ✅ CORRECTION : Ne pas déclencher onChange lors de writeValue pour éviter les boucles
+      // this.onChange(this.value); // <- LIGNE SUPPRIMÉE
     }
   }
 
@@ -100,6 +104,7 @@ export class ThemeSelectorComponent implements ControlValueAccessor, OnInit, OnD
     this.onTouched = fn;
   }
 
+  // ✅ CORRECTION : Améliorer onSelectChange pour éviter les déclenchements multiples
   onSelectChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
@@ -107,8 +112,8 @@ export class ThemeSelectorComponent implements ControlValueAccessor, OnInit, OnD
     console.log('Theme selector change event:', selectedValue);
 
     if (selectedValue === 'creer_autre_theme') {
-      // Don't change the actual value, just navigate
-      selectElement.value = this.value; // Reset the select to current value
+      // ✅ Reset sans déclencher onChange
+      selectElement.value = this.value;
 
       console.log("Redirection vers la création de thème depuis ThemeSelectorComponent.");
       this.router.navigate(['/themes-management'], {
@@ -117,15 +122,17 @@ export class ThemeSelectorComponent implements ControlValueAccessor, OnInit, OnD
       return;
     }
 
-    // Update the value and notify parent
-    this.value = selectedValue;
-    this.selectedTheme = this.themes.find(t => t.id === selectedValue);
+    // ✅ CORRECTION : Vérifier si la valeur a vraiment changé
+    if (selectedValue !== this.value) {
+      this.value = selectedValue;
+      this.selectedTheme = this.themes.find(t => t.id === selectedValue);
 
-    console.log('Theme selected:', selectedValue, this.selectedTheme?.title);
+      console.log('Theme selected:', selectedValue, this.selectedTheme?.title);
 
-    // Notify the form control
-    this.onChange(this.value);
-    this.onTouched();
+      // Notifier le changement
+      this.onChange(this.value);
+      this.onTouched();
+    }
   }
 
   private clearSelection(): void {
