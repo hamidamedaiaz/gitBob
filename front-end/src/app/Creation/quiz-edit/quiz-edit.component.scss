@@ -1,4 +1,6 @@
 // front-end/src/app/Creation/quiz-edit/quiz-edit.component.scss
+
+/* ===== CONTENEUR PRINCIPAL - CORRECTION SCROLL ===== */
 .wizard-container {
   max-width: 1200px;
   margin: 2rem auto;
@@ -8,15 +10,22 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  
+  /* ✅ CORRECTION : Hauteur adaptative pour l'édition */
   min-height: 80vh;
+  max-height: 95vh;
 }
 
+/* ===== HEADER MODE ÉDITION ===== */
 .edit-mode-header {
   background: linear-gradient(135deg, #ff7b7b, #ff9999);
   color: white;
   padding: 1.5rem 2rem;
   text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  /* ✅ Assurer que le header ne prend pas trop de place */
+  flex-shrink: 0;
 
   h2 {
     margin: 0 0 0.5rem 0;
@@ -42,16 +51,47 @@
   }
 }
 
+/* ===== CONTENU PRINCIPAL - CORRECTION SCROLL ===== */
 .wizard-content {
   flex: 1;
   padding: 2rem;
+  
+  /* ✅ CORRECTION : Permettre le scroll avec hauteur calculée */
   overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* ✅ Calculer la hauteur disponible */
+  max-height: calc(95vh - 300px); /* 300px pour header edit + footer */
+  
+  /* Personnaliser le scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #4a6bff #f8f9fa;
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #4a6bff;
+    border-radius: 4px;
+    
+    &:hover {
+      background: #3a55d9;
+    }
+  }
 }
 
 .wizard-step {
   animation: fadeIn 0.4s ease-in-out;
+  width: 100%;
 }
 
+/* ===== FOOTER NAVIGATION - CORRECTION ===== */
 .wizard-footer {
   background-color: #f8f9fa;
   padding: 1.25rem 2rem;
@@ -60,12 +100,20 @@
   align-items: center;
   border-top: 1px solid #eee;
   gap: 1rem;
+  
+  /* ✅ CORRECTION : Assurer la visibilité du footer */
+  flex-shrink: 0;
+  min-height: 80px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .spacer {
   flex: 1;
 }
 
+/* ===== BOUTONS - CORRECTION AFFICHAGE ===== */
 .btn {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
@@ -77,6 +125,11 @@
   align-items: center;
   gap: 0.5rem;
   border: none;
+  
+  /* ✅ Assurer la visibilité des boutons */
+  min-width: 120px;
+  justify-content: center;
+  white-space: nowrap;
 
   &:disabled {
     opacity: 0.6;
@@ -112,7 +165,7 @@
   }
 }
 
-// Alert Messages
+/* ===== MESSAGES D'ALERTE ===== */
 .alert {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -139,7 +192,7 @@
   }
 }
 
-// Loading Overlay
+/* ===== OVERLAY DE CHARGEMENT ===== */
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -173,6 +226,7 @@
   }
 }
 
+/* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -184,12 +238,24 @@
   }
 }
 
-// Responsive design
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
+  .wizard-container {
+    margin: 1rem;
+    min-height: calc(100vh - 2rem);
+    max-height: calc(100vh - 2rem);
+  }
+  
+  .wizard-content {
+    padding: 1rem;
+    max-height: calc(100vh - 250px);
+  }
+  
   .wizard-footer {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
+    min-height: 120px;
 
     .btn {
       flex: 1;
@@ -211,5 +277,43 @@
     p {
       font-size: 0.9rem;
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .wizard-container {
+    margin: 0.5rem;
+    min-height: calc(100vh - 1rem);
+    max-height: calc(100vh - 1rem);
+  }
+  
+  .wizard-content {
+    max-height: calc(100vh - 220px);
+  }
+  
+  .wizard-footer {
+    flex-direction: column;
+    
+    .btn {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+}
+
+/* ===== CORRECTION SPÉCIFIQUE POUR L'ÉDITEUR DE QUESTIONS ===== */
+.wizard-step .question-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  .question-tabs {
+    flex-shrink: 0;
+  }
+  
+  .question-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 2rem;
   }
 }

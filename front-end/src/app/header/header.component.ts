@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {Router, RouterLink} from "@angular/router";
-import {NgClass} from '@angular/common';
+import {Router, RouterLink, NavigationEnd} from "@angular/router";
+import {NgClass, NgIf} from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,8 @@ import {NgClass} from '@angular/common';
   imports: [
     ReactiveFormsModule,
     RouterLink,
-    NgClass
+    NgClass,
+    NgIf
   ]
 })
 export class HeaderComponent implements OnInit {
@@ -25,11 +27,26 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Écouter les événements de navigation pour fermer le sidebar automatiquement
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.closeSidebar();
+    });
   }
 
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
+    this.updateMainContentMargin();
+  }
 
+  closeSidebar(): void {
+    this.isSidebarCollapsed = true;
+    this.isManagementMenuOpen = false;
+    this.updateMainContentMargin();
+  }
+
+  private updateMainContentMargin(): void {
     const mainContent = document.querySelector('.main-content');
     if (mainContent) {
       if (this.isSidebarCollapsed) {
@@ -42,5 +59,11 @@ export class HeaderComponent implements OnInit {
 
   toggleManagementMenu(): void {
     this.isManagementMenuOpen = !this.isManagementMenuOpen;
+  }
+
+  // Méthode pour gérer la navigation et fermer le sidebar
+  navigateAndClose(route: string): void {
+    this.router.navigate([route]);
+    this.closeSidebar();
   }
 }
