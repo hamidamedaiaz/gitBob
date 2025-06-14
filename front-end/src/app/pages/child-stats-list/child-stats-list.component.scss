@@ -1,0 +1,41 @@
+.child-stats-list {
+  padding: 1rem;
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .search-filter {
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 30px;
+
+    input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    select {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+  .child-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .child-item {
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}

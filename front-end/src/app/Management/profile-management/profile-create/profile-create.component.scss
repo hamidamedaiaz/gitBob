@@ -1,0 +1,244 @@
+/* src/app/management/profile-create/profile-create.component.scss */
+@import '../../../../styles/variables';
+
+.create-profile-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.profile-create-header {
+  text-align: center;
+  margin-bottom: 30px;
+
+  h2 {
+    color: $blue;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #666;
+    font-size: 1rem;
+  }
+}
+
+.profile-form {
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .form-column {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $blue;
+
+    i {
+      margin-right: 10px;
+      color: $blue;
+    }
+  }
+
+  .mt-4 {
+    margin-top: 25px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #444;
+      font-size: 0.95rem;
+
+      .required {
+        color: #f44336;
+        margin-left: 3px;
+      }
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: $blue;
+        box-shadow: 0 0 0 3px rgba($blue, 0.2);
+        outline: none;
+      }
+
+      &.is-invalid {
+        border-color: #f44336;
+      }
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 0.85rem;
+      margin-top: 5px;
+    }
+  }
+}
+
+/* Avatar Section */
+.avatar-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid $blue;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.avatar-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.avatar-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    border-color: #999;
+  }
+
+  &.selected {
+    border-color: $blue;
+    box-shadow: 0 0 0 3px rgba($blue, 0.3);
+  }
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.btn-cancel, .btn-create {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel {
+  background-color: #f5f5f5;
+  color: #555;
+  border: 1px solid #ddd;
+
+  &:hover {
+    background-color: #e5e5e5;
+  }
+}
+
+.btn-create {
+  background-color: $blue;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background-color: darken($blue, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:disabled {
+    background-color: #b0bec5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  i {
+    font-size: 1.1rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .create-profile-container {
+    padding: 20px;
+  }
+
+  .form-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+
+    button {
+      width: 100%;
+    }
+  }
+}

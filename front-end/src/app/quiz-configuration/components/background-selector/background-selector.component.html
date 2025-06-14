@@ -1,0 +1,45 @@
+<div class="background-selector">
+  <div class="options">
+    <label>
+      <input (change)="onOptionChange()" [(ngModel)]="selectedOption" name="bgOption" type="radio" value="color"/>
+      Couleur
+    </label>
+    <label>
+      <input (change)="onOptionChange()" [(ngModel)]="selectedOption" name="bgOption" type="radio" value="presetImage"/>
+      Image prédéfinie
+    </label>
+    <label>
+      <input (change)="onOptionChange()" [(ngModel)]="selectedOption" name="bgOption" type="radio" value="customImage"/>
+      Image personnalisée
+    </label>
+  </div>
+
+  <div *ngIf="selectedOption === 'color'" class="selection couleur-selection">
+    <label for="colorSelect">Choisissez une couleur :</label>
+    <select (change)="onOptionChange()" [(ngModel)]="selectedColor" id="colorSelect">
+      <option *ngFor="let col of presetColors" [ngValue]="col.valeur">
+        {{ col.nom }}
+      </option>
+    </select>
+  </div>
+
+  <div *ngIf="selectedOption === 'presetImage'" class="selection image-selection">
+    <p>Choisissez une image de fond prédéfinie :</p>
+    <div class="preset-list">
+      <label *ngFor="let img of presetImages" class="preset-item">
+        <input (change)="onOptionChange()" [(ngModel)]="selectedImageUrl" [value]="img.url" name="presetImg"
+               type="radio"/>
+        <img [alt]="img.nom" [src]="img.url" class="thumbnail"/>
+        {{ img.nom }}
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="selectedOption === 'customImage'" class="selection custom-selection">
+    <label for="fileInput">Téléverser une image personnalisée :</label>
+    <input (change)="onFileSelected($event)" accept="image/*" id="fileInput" type="file"/>
+    <p *ngIf="!customImageData" class="note">Aucune image sélectionnée pour le moment.</p>
+  </div>
+
+  <div [ngStyle]="backgroundStyle" class="preview"></div>
+</div>

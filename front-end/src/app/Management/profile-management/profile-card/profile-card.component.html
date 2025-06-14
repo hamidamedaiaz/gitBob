@@ -1,0 +1,35 @@
+<div (click)="onSelect()" class="profile-card">
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <img [src]="profile.photoUrl" alt="Photo de profil">
+    </div>
+    <div class="profile-name-container">
+      <h3 class="profile-name">{{ truncatedName }}</h3>
+      <span class="profile-age">{{ profile.age }} ans</span>
+    </div>
+  </div>
+
+  <div *ngIf="showDetails" class="profile-body">
+    <div class="profile-info">
+      <div class="info-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Inscrit le: {{ formattedDate }}</span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-tasks"></i>
+        <span>Quiz effectués: {{ profile.quizzesDone }}</span>
+      </div>
+      <div *ngIf="profile.specialNeeds" class="info-item">
+
+        <span>{{ profile.specialNeeds }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="profile.diagnosisNotes || profile.therapyGoals" class="profile-footer">
+    <div class="therapy-info">
+
+      <div class="therapy-label">Notes d'ergothérapie disponibles</div>
+    </div>
+  </div>
+</div>

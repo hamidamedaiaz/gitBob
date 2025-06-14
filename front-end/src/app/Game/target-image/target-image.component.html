@@ -1,0 +1,37 @@
+<div [attr.data-pair]="target.pair"
+     [class.filled]="droppedImage !== null"
+     [class.highlighted]="showHint && target.pair === 2"
+     [class.over]="isOver && !droppedImage"
+     class="dropzone">
+
+  <div class="target-label">
+    <span class="action-label">{{ target.label }}</span>
+
+    <button (click)="speakLabel($event)"
+            *ngIf="showHint"
+            aria-label="Écouter le mot"
+            class="audio-button">
+      <i class="fa fa-volume-up"></i>
+    </button>
+  </div>
+
+  <div class="target-content">
+    <div class="action-image">
+      <img [alt]="target.alt" [src]="target.src" class="placeholder-image">
+    </div>
+
+    <div class="drop-area">
+      <div *ngIf="!droppedImage" class="plus-icon">+</div>
+
+      <img *ngIf="droppedImage"
+           [alt]="droppedImage.alt"
+           [src]="droppedImage.src"
+           class="dropped-image">
+    </div>
+  </div>
+
+  <div *ngIf="false" class="debug-info">
+    Target ID: {{target.id}}, Pair: {{target.pair}}<br>
+    Dropped: {{droppedImage ? 'Yes' : 'No'}}
+  </div>
+</div>

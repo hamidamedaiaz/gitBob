@@ -1,0 +1,33 @@
+<div class="score-tracking-container">
+  <div class="question-counter">
+    <div class="stat-icon">
+      <i class="fas fa-question-circle"></i>
+    </div>
+    <div class="stat-info">
+      <div class="stat-label">QUESTION</div>
+      <div class="stat-value">{{ currentQuestion }}<span class="stat-total">/{{ totalQuestions }}</span></div>
+    </div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-label">
+      <span>PROGRESSION DANS LE QUIZ</span>
+      <span class="progress-percentage">{{ progressPercentage }}%</span>
+    </div>
+    <div class="progress-outer">
+      <div [style.width.%]="progressPercentage" class="progress-inner">
+        <div class="progress-glow"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="score-counter">
+    <div class="stat-icon">
+      <i class="fas fa-star"></i>
+    </div>
+    <div class="stat-info">
+      <div class="stat-label">SCORE</div>
+      <div class="stat-value">{{ currentScore }}</div>
+    </div>
+  </div>
+</div>

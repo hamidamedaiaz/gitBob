@@ -1,0 +1,47 @@
+<div *ngIf="profile" class="child-card">
+  <div class="card-header">
+    <div class="photo-wrapper">
+      <img [src]="profile.photoUrl" alt="Photo de {{ profile.firstName }}">
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="info-row">
+      <span class="label">Nom</span>
+      <span class="value">{{ profile.lastName }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Prénom</span>
+      <span class="value">{{ profile.firstName }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Âge</span>
+      <span class="value">{{ profile.age }} ans</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Inscription</span>
+      <span class="value">{{ profile.registrationDate | date:'longDate' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Quiz réalisés</span>
+      <span class="value">{{ profile.quizzesDone }}</span>
+    </div>
+    <!-- Affichage des champs optionnels s’ils existent -->
+    <div *ngIf="profile.specialNeeds" class="info-row">
+      <span class="label">Besoin spécifique</span>
+      <span class="value">{{ profile.specialNeeds }}</span>
+    </div>
+    <div *ngIf="profile.diagnosisNotes" class="info-row">
+      <span class="label">Notes diagnostic</span>
+      <span class="value">{{ profile.diagnosisNotes }}</span>
+    </div>
+    <div *ngIf="profile.therapyGoals" class="info-row">
+      <span class="label">Objectifs thérapie</span>
+      <span class="value">{{ profile.therapyGoals }}</span>
+    </div>
+    <div *ngIf="profile.favoriteQuizIds?.length" class="info-row">
+      <span class="label">Thème favori</span>
+      <span class="value">Géométrie</span>
+    </div>
+  </div>
+</div>

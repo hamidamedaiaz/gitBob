@@ -1,0 +1,258 @@
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes bubble-float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.failure-feedback-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  perspective: 1000px;
+}
+
+.failure-card {
+  background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 100, 100, 0.3);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  border: 6px solid #ff8da1;
+  position: relative;
+  overflow: hidden;
+}
+
+.hint-highlight {
+  box-shadow: 0 0 15px 5px #4CAF50 !important; /* Lueur verte */
+  border: 3px solid #4CAF50 !important;
+  transform: scale(1.05) !important;
+  z-index: 100 !important;
+  transition: all 0.3s ease !important;
+}
+
+.hint-toast {
+  background-color: rgba(76, 175, 80, 0.9); /* Fond vert pour l'indice */
+  border-left: 5px solid #2E7D32;
+  font-weight: bold;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 0;
+
+  &.bubble1 {
+    width: 80px;
+    height: 80px;
+    top: -20px;
+    left: 10%;
+    animation: bubble-float 4s infinite;
+  }
+
+  &.bubble2 {
+    width: 60px;
+    height: 60px;
+    bottom: 10px;
+    right: 15%;
+    animation: bubble-float 6s infinite reverse;
+  }
+
+  &.bubble3 {
+    width: 40px;
+    height: 40px;
+    bottom: 50px;
+    left: 20%;
+    animation: bubble-float 5s 1s infinite;
+  }
+}
+
+.failure-icon {
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+
+  img {
+    width: 150px;
+    height: 150px;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+  }
+}
+
+.failure-message {
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 2;
+
+  h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    margin: 0 0 15px 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+  }
+
+  p {
+    color: white;
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+.failure-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+  z-index: 2;
+
+  button {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    .button-icon {
+      font-size: 22px;
+    }
+  }
+
+  .hint-button {
+    background: #4CAF50;
+    color: white;
+    box-shadow: 0 5px 0 #2E7D32;
+
+    &:hover {
+      background: #43A047;
+      box-shadow: 0 7px 0 #2E7D32;
+    }
+
+    &:active {
+      box-shadow: 0 3px 0 #2E7D32;
+    }
+  }
+
+  .retry-button {
+    background: #FF5722;
+    color: white;
+    box-shadow: 0 5px 0 #BF360C;
+
+    &:hover {
+      background: #F4511E;
+      box-shadow: 0 7px 0 #BF360C;
+    }
+
+    &:active {
+      box-shadow: 0 3px 0 #BF360C;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .failure-message {
+    h2 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .failure-actions button {
+    padding: 10px 16px;
+    font-size: 16px;
+
+    .button-icon {
+      font-size: 18px;
+    }
+  }
+
+  .failure-icon img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Animation for buttons */
+.hint-button, .retry-button {
+  animation: pulse 2s infinite;
+
+  &:hover {
+    animation: none;
+  }
+}
+
+/* Stagger animations */
+.hint-button {
+  animation-delay: 0.5s;
+}

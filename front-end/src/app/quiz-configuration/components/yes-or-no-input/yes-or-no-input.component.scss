@@ -1,0 +1,14 @@
+.yes-or-no-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  input[type="radio"] {
+    margin-right: 0.3rem;
+  }
+
+  label {
+    cursor: pointer;
+  }
+}

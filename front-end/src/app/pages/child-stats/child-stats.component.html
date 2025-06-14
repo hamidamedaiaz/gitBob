@@ -1,0 +1,18 @@
+<div class="child-stats-page">
+  <div class="header-section">
+    <h1>Statistiques</h1>
+  </div>
+  <div class="stats-wrapper">
+    <app-profile-stats-card *ngIf="profile" [profile]="profile"></app-profile-stats-card>
+    <app-observation></app-observation>
+  </div>
+
+  <div class="general-stats-section">
+    <app-general-stats></app-general-stats>
+  </div>
+
+  <div class="quiz-stats-section">
+    <app-quiz-stats></app-quiz-stats>
+  </div>
+
+</div>

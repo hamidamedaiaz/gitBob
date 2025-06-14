@@ -1,0 +1,74 @@
+@import '../../../styles/variables';
+
+.wizard-header {
+  background: linear-gradient(135deg, $blue, darken($blue, 15%));
+  color: white;
+  padding: 1.5rem 2rem;
+
+  h1 {
+    margin: 0 0 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+
+  .step-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .step-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &.active .step-number {
+    background-color: white;
+    color: #4a6bff;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+
+  &.completed .step-number {
+    background-color: #4CAF50;
+    color: white;
+  }
+}
+
+.progress-line {
+  flex: 1;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0 10px;
+  margin-bottom: 25px;
+  position: relative;
+
+  &.completed {
+    background-color: #4CAF50;
+  }
+}

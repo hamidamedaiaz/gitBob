@@ -1,0 +1,42 @@
+<div class="observation-card">
+  <div class="card-header">
+    <h2>Observations</h2>
+  </div>
+  <div class="card-body">
+    <div class="observation-list">
+      <div *ngFor="let obs of observations" class="observation-item">
+        <div class="item-header">
+          <h4>{{ obs.title }}</h4>
+          <small>{{ obs.date | date:'shortDate' }}</small>
+        </div>
+        <p class="item-content">{{ obs.content }}</p>
+        <div class="item-actions">
+          <button (click)="requestDelete(obs)" class="delete">
+            <i class="fa fa-trash"></i>
+          </button>
+          <div *ngIf="confirmationId === obs.id" class="confirmation show">
+            <span>Confirmer la suppression ?</span>
+            <button (click)="confirmDelete(obs)" class="btn-confirm">Oui</button>
+            <button (click)="cancelDelete()" class="btn-cancel">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="observation-add">
+      <h3>Ajouter une observation</h3>
+      <input
+        [(ngModel)]="newObservation.title"
+        placeholder="Titre"
+        type="text"
+      />
+      <textarea
+        [(ngModel)]="newObservation.content"
+        placeholder="Contenu"
+      ></textarea>
+      <button (click)="addObservation()" class="btn-add">
+        <i class="fa fa-plus"></i> Ajouter
+      </button>
+    </div>
+  </div>
+</div>

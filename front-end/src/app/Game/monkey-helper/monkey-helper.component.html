@@ -1,0 +1,29 @@
+<div class="monkey-helper"
+     [class.attention-pulse]="showAttentionPulse"
+     (click)="toggleHelp()">
+  <img [src]="monkeyImagePath"
+       alt="Helper Monkey"
+       class="monkey-image">
+</div>
+
+<div class="help-message"
+     [class.show]="helpVisible"
+     (click)="$event.stopPropagation()">
+  <button class="close-btn" (click)="hideHelp()">&times;</button>
+  <div class="timer-bar" [class.animate]="timerActive"></div>
+
+  <div class="help-header">
+    <span class="help-emoji">🐵</span>
+    <h3 class="help-title">Comment jouer ?</h3>
+  </div>
+
+  <div class="help-text">
+    Salut petit explorateur ! 🌟<br>
+    <strong>Clique sur une image</strong> pour lancer ta fusée 🚀, puis guide-la vers la bonne case ! C'est magique !
+  </div>
+
+  <div class="example-container">
+    <div class="example-image">🚀</div>
+    <p class="example-text">Clique et vise la bonne cible !</p>
+  </div>
+</div>

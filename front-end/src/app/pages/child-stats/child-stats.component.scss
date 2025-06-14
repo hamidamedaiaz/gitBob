@@ -1,0 +1,57 @@
+@import '../../../styles/variables';
+
+.child-stats-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+
+  .header-section {
+    background-color: $blue;
+    margin: -20px -20px 20px -20px;
+    padding: 20px 30px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+    h1 {
+      color: white;
+      font-size: 1.8rem;
+      margin: 0 0 20px 0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+.stats-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: stretch;
+
+  > app-profile-stats-card {
+    flex: 1;
+  }
+
+  > app-observation {
+    flex: 2;
+  }
+}
+
+.general-stats-section,
+.quiz-stats-section {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .child-stats-page {
+    .stats-wrapper {
+      flex-direction: column;
+
+      > app-child-info,
+      > app-observation {
+        flex: none;
+      }
+    }
+  }
+}

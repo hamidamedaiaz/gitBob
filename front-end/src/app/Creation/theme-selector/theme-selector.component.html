@@ -1,0 +1,15 @@
+<div class="theme-selector form-group">
+  <label for="theme">Sélectionner le thème</label>
+  <select
+    (blur)="onTouched()"
+    (change)="onSelectChange($event)"
+    [value]="value"
+    id="theme"
+    name="theme">
+    <option value="" disabled>Choisissez un thème</option>
+    <option *ngFor="let theme of themes; trackBy: trackByThemeId" [value]="theme.id">
+      {{ theme.title }}
+    </option>
+    <option value="creer_autre_theme">Créer un autre thème</option>
+  </select>
+</div>

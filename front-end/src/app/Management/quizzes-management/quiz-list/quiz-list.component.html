@@ -1,0 +1,9 @@
+<div class="quiz-list">
+  <app-quiz
+    (deleteQuiz)="deleteQuiz.emit($event)"
+    (editQuiz)="editQuiz.emit($event)"
+    (quizSelected)="quizSelected.emit(quiz)"
+    *ngFor="let quiz of quizzes"
+    [quiz]="quiz"
+  ></app-quiz>
+</div>

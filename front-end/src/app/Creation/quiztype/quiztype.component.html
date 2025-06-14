@@ -1,0 +1,31 @@
+<label class="label-bold">Type de questions</label><br/>
+<div class="quiz-type-selector">
+  <label>
+    <input
+      [(ngModel)]="selectedOption"
+      [value]="'action-objet'"
+      name="quizType"
+      type="radio"
+    />
+    Action‑Objet
+  </label>
+  <label>
+    <input
+      [(ngModel)]="selectedOption"
+      [value]="'succession-taches'"
+      name="quizType"
+      type="radio"
+    />
+    Succession de tâches
+  </label>
+</div>
+
+<ng-container [ngSwitch]="selectedOption">
+  <app-paires
+    *ngSwitchCase="'action-objet'">
+  </app-paires>
+
+  <app-succession-des-taches
+    *ngSwitchCase="'succession-taches'">
+  </app-succession-des-taches>
+</ng-container>

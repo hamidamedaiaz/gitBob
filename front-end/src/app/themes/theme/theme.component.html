@@ -1,0 +1,35 @@
+<div
+  [ngStyle]="{ 'border-color': borderColor }"
+  class="theme-card"
+>
+  <div (click)="onSelect()" class="theme-image">
+    <img [alt]="theme.title" [src]="theme.imageUrl"/>
+  </div>
+  <div class="theme-title">{{ theme.title }}</div>
+
+
+  <button
+    (click)="onSelect()"
+    *ngIf="showButton"
+    class="select-button"
+  >SELECTIONNER</button>
+
+
+  <button
+    (click)="onAskDelete()"
+    *ngIf="showDeleteButton"
+    class="delete-button"
+  >
+    Supprimer
+  </button>
+</div>
+<div *ngIf="isConfirmingDelete" class="overlay">
+  <div class="confirm-modal">
+    <h2>Confirmation de suppression</h2>
+    <p>Voulez-vous vraiment supprimer<br><strong>{{ theme.title }}</strong> ?</p>
+    <div class="popup-buttons">
+      <button (click)="onConfirmDelete()" class="btn-oui">Oui</button>
+      <button (click)="onCancelDelete()" class="btn-non">Non</button>
+    </div>
+  </div>
+</div>

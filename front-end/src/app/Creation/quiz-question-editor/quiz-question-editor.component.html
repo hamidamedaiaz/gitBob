@@ -1,0 +1,115 @@
+<div class="form-card question-editor">
+  <div class="question-tabs">
+    <div
+      (click)="selectQuestion(i)"
+      *ngFor="let q of questions; let i = index"
+      [class.active]="currentQuestionIndex === i"
+      class="question-tab"
+    >
+      Question {{ i + 1 }}
+    </div>
+  </div>
+
+  <div class="question-content">
+    <div class="question-header">
+      <h2>Question {{ currentQuestionIndex + 1 }}</h2>
+      <div class="question-type-selector">
+        <label class="form-label">Type de question</label>
+        <div class="toggle-group">
+          <button
+            (click)="setQuestionType('action-objet')"
+            [class.active]="getCurrentQuestionType() === 'action-objet'"
+            class="toggle-button"
+            type="button"
+          >
+            Action-Objet
+          </button>
+          <button
+            (click)="setQuestionType('succession-taches')"
+            [class.active]="getCurrentQuestionType() === 'succession-taches'"
+            class="toggle-button"
+            type="button"
+          >
+            Succession de tâches
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="getCurrentQuestionType() === 'action-objet'" class="question-type-content">
+      <div class="form-group">
+        <label class="form-label">Nombre de paires</label>
+        <select
+          (change)="updatePairsCount()"
+          [(ngModel)]="questions[currentQuestionIndex].pairsCount"
+          class="form-select"
+        >
+          <option *ngFor="let num of [1,2,3,4,5]" [ngValue]="num">{{ num }}</option>
+        </select>
+      </div>
+
+      <div class="pairs-container">
+        <h3>Paires d'images et actions</h3>
+
+        <div *ngFor="let pair of questions[currentQuestionIndex].pairs; let i = index" class="pair-item">
+          <div class="pair-header">
+            <h4>Paire {{ i + 1 }}</h4>
+            <button (click)="removePair(i)" class="btn-remove-pair" type="button">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <div class="pair-content">
+            <div class="image-upload">
+              <label>Image Source</label>
+              <div class="upload-container">
+                <div *ngIf="pair.sourceImage" class="upload-preview">
+                  <img [src]="pair.sourceImage.preview || ''" alt="Preview">
+                </div>
+                <input (change)="onFileSelected($event, i, 'source')" accept="image/*" class="file-input" type="file">
+                <button class="btn-upload" type="button">Choisir une image</button>
+              </div>
+            </div>
+
+            <div class="image-upload">
+              <label>Image Action</label>
+              <div class="upload-container">
+                <div *ngIf="pair.targetImage" class="upload-preview">
+                  <img [src]="pair.targetImage.preview || ''" alt="Preview">
+                </div>
+                <input (change)="onFileSelected($event, i, 'target')" accept="image/*" class="file-input" type="file">
+                <button class="btn-upload" type="button">Choisir une image</button>
+              </div>
+            </div>
+
+            <div class="description-input">
+              <label>Description de l'action</label>
+              <input
+                [(ngModel)]="pair.description"
+                class="form-input"
+                placeholder="Décrivez l'action"
+                type="text"
+              >
+            </div>
+          </div>
+        </div>
+
+        <button (click)="addPair()" class="btn-add-pair" type="button">
+          <i class="fas fa-plus"></i> Ajouter une paire
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="getCurrentQuestionType() === 'succession-taches'" class="question-type-content">
+      <div class="form-group">
+        <label class="form-label">Nombre d'étapes</label>
+        <option *ngFor="let num of [2,3,4,5,6]" [ngValue]="num">{{ num }}</option>
+      </div>
+
+      <div class="steps-container">
+        <h3>Étapes en succession</h3>
+      </div>
+    </div>
+  </div>
+</div>

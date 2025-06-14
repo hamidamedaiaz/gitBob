@@ -1,0 +1,76 @@
+<div class="form-card">
+  <h2>Finalisation et Paramètres Avancés</h2>
+
+  <div class="config-preview">
+    <h3>Résumé du Quiz</h3>
+    <div class="summary-item">
+      <span class="summary-label">Nom :</span>
+      <span class="summary-value">{{ generalInfoForm.get('name')?.value || 'Non défini' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Thème :</span>
+      <span class="summary-value" [class.loading]="isThemeLoading()">
+        {{ getThemeDisplayName() }}
+      </span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Nombre de questions :</span>
+      <span class="summary-value">
+        {{ generalInfoForm.get('numberOfQuestions')?.value || 0 }}
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="configData" class="config-preview">
+    <h3>Paramètres avancés</h3>
+    <div class="summary-item">
+      <span class="summary-label">Taille de police :</span>
+      <span class="summary-value">
+        {{ getFontSizeLabel(configData.taillePolice) }}
+      </span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Taille d'image :</span>
+      <span class="summary-value">
+        {{ getImageSizeLabel(configData.tailleImage) }}
+      </span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Luminosité :</span>
+      <span class="summary-value">
+        {{ getLuminosityLabel(configData.luminosite) }}
+      </span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Feedback succès :</span>
+      <span class="summary-value">{{ configData.feedbackSucces || 'Non défini' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Feedback échec :</span>
+      <span class="summary-value">{{ configData.feedbackEchec || 'Non défini' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Chronomètre :</span>
+      <span class="summary-value">
+        {{ configData.chronometre ? 'Oui' : 'Non' }}
+      </span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Mode aléatoire :</span>
+      <span class="summary-value">
+        {{ configData.ordreAleatoire ? 'Oui' : 'Non' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="advanced-config">
+    <button
+      (click)="navigateToAdvancedConfig()"
+      class="advanced-config-button"
+      type="button"
+    >
+      <i class="fas fa-cog"></i>
+      Configurer les paramètres avancés
+    </button>
+  </div>
+</div>

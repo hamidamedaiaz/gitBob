@@ -1,0 +1,11 @@
+<div class="section-form-input">
+  <label *ngIf="label" [for]="id">{{ label }}</label>
+  <input
+    (blur)="onTouched()"
+    (input)="onInputChange($event)"
+    [id]="id"
+    [value]="value"
+    placeholder="{{ placeholder }}"
+    type="text"
+  />
+</div>

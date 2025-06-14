@@ -1,0 +1,98 @@
+<div class="general-stats">
+
+  <div class="header">
+    <h2>Statistiques Générales</h2>
+    <div class="date-range">
+      <label for="startDate">Date début :</label>
+      <input id="startDate" type="date">
+      <label for="endDate">Date fin :</label>
+      <input id="endDate" type="date">
+      <button>Valider</button>
+    </div>
+  </div>
+
+  <div class="stats-sections">
+
+    <section class="section performance">
+      <h3>Performance</h3>
+      <div class="metrics">
+        <div class="metric"><span class="label">Total quiz réalisés</span><span
+          class="value">{{ stats.totalQuizzes }}</span></div>
+        <div class="metric"><span class="label">Total questions</span><span
+          class="value">{{ stats.totalQuestions }}</span></div>
+        <div class="metric"><span class="label">Temps total passé</span><span
+          class="value">{{ stats.averageResponseTime * stats.totalQuestions | number:'1.0-0' }} s</span></div>
+        <div class="metric"><span class="label">Temps moyen réponse</span><span
+          class="value">{{ stats.averageResponseTime }} s</span></div>
+      </div>
+    </section>
+
+    <section class="section results">
+      <h3>Résultats</h3>
+      <div class="metrics">
+        <div class="metric"><span class="label">Taux de réussite</span><span
+          class="value">{{ stats.quizCompletionRate }} %</span></div>
+        <div class="metric"><span class="label">Utilisation d’aide</span><span
+          class="value">{{ stats.helpUsageTrend }}</span></div>
+        <div class="metric"><span class="label">Quiz finis</span><span class="value">{{ stats.quizCompletionRate }}
+          %</span></div>
+      </div>
+    </section>
+
+    <section class="section personal-stats">
+      <h3>Statistiques Personnelles</h3>
+      <div class="metrics">
+        <div class="metric"><span class="label">Réussite 3 images</span><span
+          class="value">{{ stats.evolutionImagesData.datasets[0].data[0] }} %</span></div>
+        <div class="metric"><span class="label">Réussite 4 images</span><span
+          class="value">{{ stats.evolutionImagesData.datasets[1].data[1] }} %</span></div>
+        <div class="metric"><span class="label">Réussite 5 images</span><span
+          class="value">{{ stats.evolutionImagesData.datasets[2].data[2] }} %</span></div>
+        <div class="metric"><span class="label">Temps moyen réaction</span><span
+          class="value">{{ stats.reactionTimeTrend }}</span></div>
+        <div class="metric"><span class="label">Précision</span><span class="value">{{ stats.improvementCorrectRate }}
+          %</span></div>
+        <div class="metric"><span class="label">Plus long streak</span><span class="value">--</span></div>
+        <div class="metric"><span class="label">Streaks > 3 questions</span><span class="value">--</span></div>
+      </div>
+    </section>
+
+    <section class="section preferences">
+      <h3>Préférences</h3>
+      <div class="metrics">
+        <div class="metric"><span class="label">Thèmes préférés</span><span class="value">--</span></div>
+        <div class="metric"><span class="label">Réussite par thème</span><span class="value">--</span></div>
+        <div class="metric"><span class="label">Assoc. images</span><span class="value">--</span></div>
+        <div class="metric"><span class="label">Reconstitution séquences</span><span class="value">--</span></div>
+        <div class="metric"><span class="label">Config. préférée</span><span class="value">--</span></div>
+      </div>
+    </section>
+
+    <section class="section tracking">
+      <h3>Suivi de performance</h3>
+      <div class="metrics">
+        <div class="metric"><span class="label">Variation taux réussite</span><span class="value">--</span></div>
+        <div class="metric"><span class="label">Variation usage aide</span><span class="value">--</span></div>
+      </div>
+      <div class="charts-row">
+        <div class="chart-item">
+          <h3>Succès par quiz</h3>
+          <canvas id="evolutionTimeChart"></canvas>
+        </div>
+        <div class="chart-item">
+          <h3>Thèmes joués / jour</h3>
+          <canvas id="evolutionImagesChart"></canvas>
+        </div>
+        <div class="chart-item">
+          <h3>Types de questions</h3>
+          <canvas id="quizTypePieChart"></canvas>
+        </div>
+        <div class="chart-item">
+          <h3>Temps & Réaction</h3>
+          <canvas id="reactionTimeChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

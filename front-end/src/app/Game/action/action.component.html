@@ -1,0 +1,116 @@
+<div [ngStyle]="containerStyle" class="action-container">
+  <app-rocket></app-rocket>
+
+
+  <img *ngIf="backgroundImageUrl" [src]="backgroundImageUrl" alt="Background" class="background-img">
+  <div *ngIf="!backgroundImageUrl" [style.background-color]="backgroundColorValue"
+       class="background-color-overlay"></div>
+
+  <div class="score-tracking-wrapper">
+    <app-score-tracking></app-score-tracking>
+  </div>
+
+  <button (click)="openConfigModal()" class="config-button">
+    <i class="fa fa-cog"></i> Configuration
+  </button>
+
+  <app-monkey-helper></app-monkey-helper>
+
+
+
+  <div class="game-container">
+
+    <div *ngIf="obstaclesEnabled" class="obstacles-container">
+      <app-obstacle
+        *ngFor="let obstacle of obstacles"
+        [obstacle]="obstacle">
+      </app-obstacle>
+    </div>
+    <div class="column left-column">
+      <ng-container *ngFor="let item of leftColumnItems$ | async">
+        <app-source-image
+          (imageDragged)="onImageDragged($event)"
+          *ngIf="item.type === 'source'"
+          [image]="item.data"
+          [isPlaced]="isSourceImagePlaced(item.data)"
+          [showHint]="showHint"
+          class="game-element">
+        </app-source-image>
+
+        <app-target-image
+          (dropSuccess)="onDropSuccess($event)"
+          *ngIf="item.type === 'target'"
+          [showHint]="showHint"
+          [target]="item.data"
+          class="game-element">
+        </app-target-image>
+      </ng-container>
+    </div>
+
+    <div class="column right-column">
+      <ng-container *ngFor="let item of rightColumnItems$ | async">
+        <app-source-image
+          (imageDragged)="onImageDragged($event)"
+          *ngIf="item.type === 'source'"
+          [image]="item.data"
+          [isPlaced]="isSourceImagePlaced(item.data)"
+          [showHint]="showHint"
+          class="game-element">
+        </app-source-image>
+
+        <app-target-image
+          (dropSuccess)="onDropSuccess($event)"
+          *ngIf="item.type === 'target'"
+          [showHint]="showHint"
+          [target]="item.data"
+          class="game-element">
+        </app-target-image>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="feedback-tabs">
+    <input [checked]="feedbackState === 'default'" checked id="tab-default" name="feedback-tabs" type="radio">
+    <input [checked]="feedbackState === 'failure'" id="tab-failure" name="feedback-tabs" type="radio">
+    <input [checked]="feedbackState === 'success'" id="tab-success" name="feedback-tabs" type="radio">
+
+    <div class="tab-content default-content"></div>
+
+    <div *ngIf="feedbackState === 'success'" class="tab-content success-content">
+      <app-success-feedback
+        (nextQuestionEvent)="moveToNextQuestion()"
+        [successMessage]="successMessage">
+      </app-success-feedback>
+    </div>
+
+    <div *ngIf="feedbackState === 'failure'" class="tab-content failure-content">
+      <app-failure-feedback
+        (retryEvent)="resetAfterFailure()"
+        (showHintEvent)="toggleHint()"
+        [failureMessage]="failureMessage">
+      </app-failure-feedback>
+    </div>
+  </div>
+
+
+  <div class="quiz-controls">
+    <button (click)="checkResult()" class="confirm-button">
+      <div class="button-icon">✓</div>
+      <span>Confirmer</span>
+    </button>
+  </div>
+
+  <app-config-game
+    (close)="closeConfigModal()"
+    (save)="saveConfigSettings($event)"
+    [show]="showConfigModal">
+  </app-config-game>
+  <app-completion-modal
+    (home)="goToHome()"
+    (restart)="restartGame()"
+    [finalScore]="finalScore"
+    [show]="isGameCompleted">
+  </app-completion-modal>
+
+
+</div>

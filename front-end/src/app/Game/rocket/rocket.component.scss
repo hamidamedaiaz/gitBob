@@ -1,0 +1,153 @@
+.rocket-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  transform-origin: center center;
+  z-index: 1000;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.rocket-svg {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 5px rgba(255, 100, 50, 0.8));
+
+  &.flying {
+    animation: pulse 0.5s infinite alternate;
+  }
+
+  &.landing {
+    animation: landing 1s forwards;
+  }
+
+  &.returning {
+    animation: shake 0.5s infinite;
+  }
+}
+
+.exhaust {
+  animation: flicker 0.1s infinite alternate;
+}
+
+.exhaust-inner {
+  animation: thruster 0.05s infinite alternate;
+}
+
+/* Enhanced particle trail */
+.particle-trail {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+
+  .particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 235, 59, 0.8) 0%, rgba(255, 152, 0, 0) 70%);
+    filter: blur(1px);
+
+    @for $i from 1 through 15 {
+      &:nth-child(#{$i}) {
+        left: -$i * 6px;
+        opacity: 1 - ($i * 0.06);
+        animation: fadeParticle 0.8s infinite alternate;
+        animation-delay: $i * 0.05s;
+        transform: scale(random(5) * 0.2 + 0.6);
+
+        // Randomly position particles around center line
+        top: if(random(10) > 5, random(20) * 1px, random(20) * -1px);
+      }
+    }
+  }
+}
+
+// Enhanced glow effect for flying
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    filter: drop-shadow(0 0 5px rgba(255, 100, 50, 0.8));
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: drop-shadow(0 0 12px rgba(255, 100, 50, 1));
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.7;
+    transform: scaleX(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1.1);
+  }
+}
+
+@keyframes thruster {
+  0% {
+    transform: scaleX(0.7);
+  }
+  100% {
+    transform: scaleX(1.3);
+  }
+}
+
+// Enhanced landing animation
+@keyframes landing {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 100, 50, 0.8));
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 20px rgba(255, 100, 50, 1));
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.6;
+    filter: drop-shadow(0 0 15px rgba(100, 255, 100, 0.8));
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 0;
+    filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  }
+}
+
+// Enhanced "return to source" animation
+@keyframes shake {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translate(-52%, -50%) rotate(-3deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translate(-48%, -50%) rotate(3deg);
+  }
+}
+
+// Enhanced particle animation
+@keyframes fadeParticle {
+  0% {
+    opacity: 0.2;
+    width: 4px;
+    height: 4px;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 0.8;
+    width: 10px;
+    height: 10px;
+    filter: blur(2px);
+  }
+}

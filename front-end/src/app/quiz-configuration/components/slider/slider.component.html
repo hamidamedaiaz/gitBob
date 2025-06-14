@@ -1,0 +1,13 @@
+<div class="slider-container" id="slider-container">
+  <label [for]="'slider-' + label">
+    {{ label }}: <span>{{ value }}</span>
+  </label>
+  <input (input)="onInputChange($event)"
+         [disabled]="disabled"
+         [max]="max"
+         [min]="min"
+         [step]="step"
+         [value]="value"
+         id="slider-{{ label }}"
+         type="range"/>
+</div>

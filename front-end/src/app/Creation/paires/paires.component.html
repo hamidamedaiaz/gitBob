@@ -1,0 +1,28 @@
+<h3>Paires Image-Action</h3>
+
+
+<div *ngFor="let pair of pairs; let i = index" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+  <div>
+    <label>Image 1 :</label>
+
+    <app-file-input (fileChange)="updatePairImage1(i, $event)"></app-file-input>
+  </div>
+  <div>
+    <label>Image 2 :</label>
+    <app-file-input (fileChange)="updatePairImage2(i, $event)"></app-file-input>
+  </div>
+  <div>
+    <label>Description de l'action :</label>
+    <app-text-input
+      (input)="onPairDescriptionInput(i, $event)"
+      [placeholderText]="'Ex: Entrez une description'">
+    </app-text-input>
+
+  </div>
+  <div style="margin-top: 5px;">
+
+    <app-my-button (clickEvent)="removePair(i)" label="Supprimer cette paire"></app-my-button>
+  </div>
+</div>
+
+

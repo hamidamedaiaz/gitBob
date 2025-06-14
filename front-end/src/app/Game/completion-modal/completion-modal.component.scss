@@ -1,0 +1,69 @@
+
+.game-completion-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  position: relative;
+  z-index: 1001;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h1 {
+  color: #4CAF50;
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+.score-display {
+  margin: 20px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-restart, .btn-home {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-restart {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-home {
+  background-color: #2196F3;
+  color: white;
+}

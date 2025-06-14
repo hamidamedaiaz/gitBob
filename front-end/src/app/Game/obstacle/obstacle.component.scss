@@ -1,0 +1,111 @@
+
+.obstacle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  z-index: 50;
+  filter: drop-shadow(0 0 10px rgba(255, 87, 34, 0.5));
+  pointer-events: none;
+
+  transform: translateZ(0);
+
+  &.colliding {
+    animation: collision-flash 0.3s ease-in-out;
+    filter: brightness(1.5) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+  }
+}
+
+.obstacle-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &.moving {
+    &::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 2px dashed rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: rotate 10s linear infinite;
+      z-index: -1;
+    }
+  }
+}
+
+.obstacle-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+
+  .moving & {
+    animation: pulse 2s infinite alternate;
+  }
+
+  .static & {
+    animation: pulse 4s infinite alternate;
+  }
+}
+
+// Keep all your existing keyframe animations
+@keyframes collision-flash {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 0, 0, 0));
+  }
+  50% {
+    filter: brightness(2) drop-shadow(0 0 30px rgba(255, 0, 0, 1));
+  }
+  100% {
+    filter: brightness(1) drop-shadow(0 0 0 rgba(255, 0, 0, 0));
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

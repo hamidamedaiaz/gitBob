@@ -1,0 +1,179 @@
+<div (click)="closeModal()" [class.show]="show" class="modal-backdrop">
+  <div (click)="$event.stopPropagation()" [class.show]="show" class="modal-container">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Paramètres du Jeu </h2>
+        <button (click)="closeModal()" class="close-button">×</button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="setting-row">
+          <label class="setting-label">
+            Son
+          </label>
+          <div class="toggle-container">
+            <div (click)="toggleSound()" [class.active]="soundEnabled" class="toggle-option">
+              <span>Oui</span>
+            </div>
+            <div (click)="toggleSound()" [class.active]="!soundEnabled" class="toggle-option">
+              <span>Non</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="setting-row">
+          <label class="setting-label">
+            Mode Aléatoire
+          </label>
+          <div class="toggle-container">
+            <div (click)="randomMode = true" [class.active]="randomMode" class="toggle-option">
+              <span>Oui</span>
+            </div>
+            <div (click)="randomMode = false" [class.active]="!randomMode" class="toggle-option">
+              <span>Non</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- New obstacle settings -->
+        <div class="setting-row">
+          <label class="setting-label">
+            <i class="fas fa-ban"></i>
+            Activer les obstacles
+          </label>
+          <div class="toggle-container">
+            <div (click)="obstaclesEnabled = true" [class.active]="obstaclesEnabled" class="toggle-option">
+              <span>Oui</span>
+            </div>
+            <div (click)="obstaclesEnabled = false" [class.active]="!obstaclesEnabled" class="toggle-option">
+              <span>Non</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Difficulty level selector (visible only when obstacles enabled) -->
+        <div *ngIf="obstaclesEnabled" class="setting-row">
+          <label class="setting-label">
+            <i class="fas fa-fire"></i>
+            Niveau de difficulté
+          </label>
+          <div class="difficulty-selector">
+            <div (click)="setDifficulty('easy')"
+                 [class.active]="difficulty === 'easy'"
+                 class="difficulty-option">
+              <div class="difficulty-icon easy">
+                <i class="fas fa-smile"></i>
+              </div>
+              <span>Facile</span>
+            </div>
+            <div (click)="setDifficulty('medium')"
+                 [class.active]="difficulty === 'medium'"
+                 class="difficulty-option">
+              <div class="difficulty-icon medium">
+                <i class="fas fa-meh"></i>
+              </div>
+              <span>Moyen</span>
+            </div>
+            <div (click)="setDifficulty('hard')"
+                 [class.active]="difficulty === 'hard'"
+                 class="difficulty-option">
+              <div class="difficulty-icon hard">
+                <i class="fas fa-dizzy"></i>
+              </div>
+              <span>Difficile</span>
+            </div>
+          </div>
+
+          <!-- Difficulty description -->
+          <div class="difficulty-description">
+            <div *ngIf="difficulty === 'easy'">
+              Quelques obstacles simples et statiques
+            </div>
+            <div *ngIf="difficulty === 'medium'">
+              Plus d'obstacles, certains avec mouvement
+            </div>
+            <div *ngIf="difficulty === 'hard'">
+              Nombreux obstacles avec mouvements complexes
+            </div>
+          </div>
+        </div>
+
+
+        <div class="setting-row">
+          <label class="setting-label">
+            Taille de Texte
+          </label>
+          <div class="size-options">
+            <div (click)="fontSize = 'small'" [class.active]="fontSize === 'small'" class="size-option">
+              <span style="font-size: 14px;">Petit</span>
+            </div>
+            <div (click)="fontSize = 'medium'" [class.active]="fontSize === 'medium'" class="size-option">
+              <span style="font-size: 18px;">Moyen</span>
+            </div>
+            <div (click)="fontSize = 'large'" [class.active]="fontSize === 'large'" class="size-option">
+              <span style="font-size: 22px;">Grand</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="setting-row">
+          <label class="setting-label">
+            Taille d'Image
+          </label>
+          <div class="size-options">
+            <div (click)="imageSize = 'small'" [class.active]="imageSize === 'small'" class="size-option">
+              <div class="image-size-preview small"></div>
+              <span>Petit</span>
+            </div>
+            <div (click)="imageSize = 'medium'" [class.active]="imageSize === 'medium'" class="size-option">
+              <div class="image-size-preview medium"></div>
+              <span>Moyen</span>
+            </div>
+            <div (click)="imageSize = 'large'" [class.active]="imageSize === 'large'" class="size-option">
+              <div class="image-size-preview large"></div>
+              <span>Grand</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <label class="setting-label">
+
+            Arrière-plan
+          </label>
+          <div class="background-options">
+            <div (click)="selectedBackground = bg.id"
+                 *ngFor="let bg of backgroundOptions"
+                 [class.active]="selectedBackground === bg.id"
+                 [style.background-size]="bg.type === 'image' ? 'cover' : 'auto'"
+                 [style.background]="bg.type === 'color' ? bg.value : 'url(' + bg.value + ')'"
+                 class="background-option">
+              <span>{{ bg.name }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <label class="setting-label">
+            Luminosité
+          </label>
+          <div class="slider-container">
+            <input [(ngModel)]="brightnessValue" class="brightness-slider" max="150" min="50" step="10" type="range">
+            <div class="slider-labels">
+              <span>Plus sombre</span>
+              <span>Plus clair</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button (click)="closeModal()" class="cancel-button">Annuler</button>
+        <button (click)="saveSettings()" class="save-button">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>

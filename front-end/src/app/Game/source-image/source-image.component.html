@@ -1,0 +1,16 @@
+<div
+
+  (click)="onImageClick($event)"
+  [attr.data-pair]="image.pair"
+  [class.hidden]="isPlaced"
+  [class.highlighted]="showHint && image.pair === 2"
+  class="image-item">
+
+  <img [alt]="image.alt" [src]="image.src">
+
+  <!-- Debug info (optional, remove in production) -->
+  <div *ngIf="false" class="debug-info">
+
+    ID: {{image.id}}, Pair: {{image.pair}}, Placed: {{isPlaced}}
+  </div>
+</div>

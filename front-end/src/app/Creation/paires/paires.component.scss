@@ -1,0 +1,32 @@
+.pairs-title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.pair-item {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fff;
+
+  .pair-field {
+    margin-bottom: 0.5rem;
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+  }
+
+  .pair-actions {
+    text-align: right;
+  }
+}
+
+.add-pair {
+  text-align: center;
+  margin-top: 1rem;
+}

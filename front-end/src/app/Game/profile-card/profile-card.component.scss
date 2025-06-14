@@ -1,0 +1,102 @@
+@import '../../../styles/variables';
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 4px solid #3498db;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 10px;
+  background-color: white;
+  width: 220px;
+  height: 240px; // Reduced height since we removed some info
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  aspect-ratio: auto;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.profile-photo {
+  width: 100px; // Slightly larger photo
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 60%;
+    border: 3px solid $blue;
+  }
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.profile-info {
+  flex: 1;
+  text-align: center;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.profile-details {
+  p {
+    margin: 8px 0; // Increased margin for better spacing
+    font-size: 14px;
+    color: #555;
+  }
+}
+
+.profile-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.select-button {
+  background-color: #FFD700;
+  border: none;
+  padding: 10px 20px; // Slightly larger button
+  border-radius: 5px;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background-color: #FFC107;
+  }
+}

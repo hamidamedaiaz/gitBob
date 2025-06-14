@@ -1,0 +1,17 @@
+<div class="yes-or-no-control" id="yes-or-no-control-container">
+  <input (change)="selectOption('oui')"
+         [checked]="value === 'oui'"
+         [id]="'option-oui-' + groupName"
+         [name]="groupName"
+         type="radio"
+         value="oui"/>
+  <label [for]="'option-oui-' + groupName">Oui</label>
+
+  <input (change)="selectOption('non')"
+         [checked]="value === 'non'"
+         [id]="'option-non-' + groupName"
+         [name]="groupName"
+         type="radio"
+         value="non"/>
+  <label [for]="'option-non-' + groupName">Non</label>
+</div>

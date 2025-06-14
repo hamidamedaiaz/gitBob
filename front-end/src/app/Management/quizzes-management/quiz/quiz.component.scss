@@ -1,0 +1,152 @@
+/* src/app/management/quizzes-management/quiz/quiz.component.scss */
+@import '../../../../styles/variables';
+
+.quiz-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+
+    .quiz-card-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, $blue, lighten($blue, 20%));
+  }
+}
+
+.quiz-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.quiz-title-container {
+  flex: 1;
+  width: 100%;
+}
+
+.quiz-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.quiz-icon-inline {
+  color: $blue;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.quiz-theme {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 3px;
+}
+
+.quiz-body {
+  padding: 15px 20px;
+  flex: 1;
+}
+
+.quiz-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #666;
+
+  i {
+    color: $blue;
+    width: 16px;
+    text-align: center;
+  }
+}
+
+.quiz-card-actions {
+  padding: 10px 20px 20px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+
+  .action-btn {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    i {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    &.edit {
+      background-color: #2196F3;
+
+      &:hover {
+        background-color: #1976D2;
+      }
+    }
+
+    &.delete {
+      background-color: #F44336;
+
+      &:hover {
+        background-color: #D32F2F;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .quiz-card-actions {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

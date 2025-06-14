@@ -1,0 +1,56 @@
+#config-container {
+  padding: 1rem;
+
+  .title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .split-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .left-panel, .right-panel {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    hr {
+      margin: 1rem 0;
+    }
+
+    .live-preview {
+      text-align: center;
+
+      p {
+        margin: 0.5rem 0;
+      }
+
+      img {
+        max-width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  #save-button-container {
+    text-align: center;
+    margin-top: 1rem;
+
+    button {
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #28a745;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  }
+}

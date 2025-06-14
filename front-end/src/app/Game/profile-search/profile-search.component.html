@@ -1,0 +1,18 @@
+<div class="search-container">
+  <div class="search-box">
+    <i class="search-icon fas fa-search"></i>
+    <input
+      #searchBox
+      (input)="search(searchBox.value)"
+      class="search-input"
+      placeholder="Rechercher un profil..."
+      type="text"
+    >
+    <button
+      (click)="searchBox.value=''; clearSearch()"
+      *ngIf="searchBox.value"
+      class="clear-button">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>

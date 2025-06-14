@@ -1,0 +1,19 @@
+<div (click)="selectProfile()" class="profile-card">
+  <div class="profile-photo">
+    <img [alt]="profile.firstName + ' ' + profile.lastName" [src]="profile.photoUrl">
+  </div>
+  <div class="profile-content">
+    <div class="profile-info">
+      <h3 class="profile-name">{{ profile.firstName }} {{ profile.lastName }}</h3>
+      <div class="profile-details">
+        <p><strong>Âge:</strong> {{ profile.age }} ans</p>
+        <p><strong>Inscrit le:</strong> {{ getFormattedDate(profile.registrationDate) }}</p>
+      </div>
+    </div>
+    <div class="profile-action">
+      <button class="select-button">
+        <i class="fas fa-gamepad"></i> Sélectionner
+      </button>
+    </div>
+  </div>
+</div>

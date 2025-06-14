@@ -1,0 +1,16 @@
+<div class="theme-container">
+
+  <img alt="Background" class="background-img" src="assets/homeBackground.jpg">
+  <div class="theme-header">
+    <h2>{{ headerText }}</h2>
+  </div>
+  <div class="themes-grid">
+    <div *ngFor="let theme of themes; let i = index">
+      <app-theme
+        (themeSelected)="onThemeSelected(theme)"
+        [borderColor]="getBorderColorByIndex(i)"
+        [theme]="theme">
+      </app-theme>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+@import '../../../styles/variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.charts-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .card-header {
+    padding: 1.5rem;
+    background-color: $blue;
+
+    h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 1.5rem;
+    }
+  }
+
+  .card-body.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+
+    .chart-item {
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+
+      h3 {
+        margin: 0 0 1rem;
+        font-size: 1.1rem;
+        color: #222;
+        text-align: center;
+      }
+
+      canvas {
+        width: 100% !important;
+        height: auto !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .charts-card {
+    .card-body.charts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

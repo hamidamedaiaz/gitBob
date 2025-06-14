@@ -1,0 +1,118 @@
+
+<div class="quiz-management-container">
+  <div class="header-section">
+    <h1>Gestion des Quiz</h1>
+    <div class="search-filter-controls">
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input
+          (input)="onSearchChange()"
+          [(ngModel)]="searchQuery"
+          placeholder="Rechercher un quiz..."
+          type="text"
+          [disabled]="isLoading"
+        />
+        <button
+          (click)="searchQuery=''; onSearchChange()"
+          *ngIf="searchQuery"
+          class="clear-search-btn"
+        ><i class="fas fa-times"></i></button>
+      </div>
+      <div class="filter-container">
+        <label for="quizFilter">Trier par:</label>
+        <select
+          (change)="onFilterChange()"
+          [(ngModel)]="selectedFilter"
+          id="quizFilter"
+          [disabled]="isLoading"
+        >
+          <option value="alpha">Ordre alphabétique</option>
+          <option value="size">Nombre de questions</option>
+        </select>
+      </div>
+      <button (click)="createQuiz()" class="btn-create" [disabled]="isLoading">
+        <i class="fas fa-plus"></i>
+        Nouveau quiz
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <p>Chargement des quiz...</p>
+    </div>
+
+
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && !error && filteredQuizzes.length === 0 && searchQuery === ''" class="empty-state">
+      <div class="empty-state-icon">
+        <i class="fas fa-puzzle-piece"></i>
+      </div>
+      <h3>Aucun quiz créé</h3>
+      <p>Commencez par créer votre premier quiz.</p>
+      <button (click)="createQuiz()" class="btn-create-first">
+        <i class="fas fa-plus"></i>
+        Créer un quiz
+      </button>
+    </div>
+
+    <!-- No Search Results -->
+    <div *ngIf="!isLoading && !error && filteredQuizzes.length === 0 && searchQuery !== ''" class="empty-state">
+      <div class="empty-state-icon">
+        <i class="fas fa-search"></i>
+      </div>
+      <h3>Aucun quiz trouvé</h3>
+      <p>Aucun quiz ne correspond à votre recherche.</p>
+      <button (click)="searchQuery=''; onSearchChange()" class="reset-search-btn">
+        Réinitialiser la recherche
+      </button>
+    </div>
+
+    <!-- Quiz Grid -->
+    <div *ngIf="!isLoading && !error && filteredQuizzes.length > 0" class="quizzes-grid">
+      <app-quiz
+        (deleteQuiz)="onDeleteClick($event)"
+        (editQuiz)="editQuiz($event)"
+        (quizSelected)="selectQuiz(quiz)"
+        *ngFor="let quiz of filteredQuizzes"
+        [quiz]="quiz"
+      ></app-quiz>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div *ngIf="showConfirmDelete" class="confirmation-modal-backdrop">
+    <div class="confirmation-modal">
+      <h3>Confirmation de suppression</h3>
+      <p>
+        Êtes‑vous sûr de vouloir supprimer le quiz
+        <strong>{{ quizToDelete?.name }}</strong> ?
+      </p>
+      <p class="warning-text">
+        <i class="fas fa-exclamation-triangle"></i>
+        Cette action est irréversible et supprimera également toutes les questions et réponses associées.
+      </p>
+      <div class="modal-buttons">
+        <button (click)="confirmDelete()" class="btn-confirm">
+          <i class="fas fa-trash"></i>
+          Supprimer
+        </button>
+        <button (click)="cancelDelete()" class="btn-cancel">
+          <i class="fas fa-times"></i>
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Toast -->
+  <div *ngIf="showDeletedToast" class="toast toast-success">
+    <i class="fas fa-check-circle"></i>
+    Quiz supprimé avec succès
+  </div>
+</div>

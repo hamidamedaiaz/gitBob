@@ -1,0 +1,28 @@
+<div class="wizard-container">
+  <app-quiz-progress-bar [currentStep]="currentStep"></app-quiz-progress-bar>
+
+  <div class="wizard-content">
+    <div *ngIf="currentStep === 1" class="wizard-step">
+      <app-quiz-general-info [generalInfoForm]="generalInfoForm"></app-quiz-general-info>
+    </div>
+    <div *ngIf="currentStep === 2" class="wizard-step">
+      <app-quiz-question-editor [questions]="questions"></app-quiz-question-editor>
+    </div>
+    <div *ngIf="currentStep === 3" class="wizard-step">
+      <app-quiz-finalization
+        [configData]="configData"
+        [generalInfoForm]="generalInfoForm"
+        [getThemeName]="getThemeName.bind(this)"
+        [navigateToAdvancedConfig]="navigateToAdvancedConfig.bind(this)"
+      ></app-quiz-finalization>
+    </div>
+  </div>
+
+  <app-quiz-footer-navigation
+    [canProceedToNextStep]="canProceedToNextStep.bind(this)"
+    [currentStep]="currentStep"
+    [nextStep]="nextStep.bind(this)"
+    [prevStep]="prevStep.bind(this)"
+    [saveQuiz]="saveQuiz.bind(this)"
+  ></app-quiz-footer-navigation>
+</div>

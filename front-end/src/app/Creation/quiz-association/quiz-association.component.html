@@ -1,0 +1,8 @@
+<label for="association">Associer à :</label>
+<select (blur)="onTouched()" (change)="onSelectChange($event)" [value]="value" id="association" name="association">
+  <option value="enfant1">Enfant 1</option>
+  <option value="enfant2">Enfant 2</option>
+  <option value="enfant3">Enfant 3</option>
+  <option value="enfant4">Enfant 4</option>
+  <option value="associer_tous">Associer à tous</option>
+</select>

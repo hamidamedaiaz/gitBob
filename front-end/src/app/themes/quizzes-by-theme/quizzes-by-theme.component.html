@@ -1,0 +1,38 @@
+<!-- src/app/Game/quizzes-by-theme/quizzes-by-theme.component.html -->
+<div class="quizzes-by-theme-container">
+  <img [src]="backgroundImageUrl" alt="Background" class="background-img">
+
+  <div class="content-wrapper">
+    <h1 class="game-title">
+      <span *ngIf="theme">{{ theme.title }}</span>
+      <span *ngIf="!theme">Quizzes</span>
+    </h1>
+
+    <div *ngIf="loading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Chargement des quizzes...</p>
+    </div>
+
+    <div *ngIf="!loading && quizzes.length > 0" class="themes-grid">
+      <div *ngFor="let quiz of quizzes" class="theme-card" (click)="selectQuiz(quiz)">
+        <div class="theme-image">
+          <div class="quiz-icon">
+            <i class="fas fa-question-circle"></i>
+          </div>
+        </div>
+
+        <!-- ✅ Quiz info section: name + number of questions -->
+        <div class="theme-info">
+          <h2>{{ quiz.name }}</h2>
+          <p class="quiz-questions">
+            {{ quiz.questions?.length || 0 }} {{ quiz.questions?.length === 1 ? 'question' : 'questions' }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>

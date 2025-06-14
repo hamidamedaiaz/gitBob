@@ -1,0 +1,28 @@
+<div class="failure-feedback-container">
+  <div class="failure-card">
+    <div class="bubble bubble1"></div>
+    <div class="bubble bubble2"></div>
+    <div class="bubble bubble3"></div>
+
+    <div class="failure-icon">
+      <img alt="Essaie encore" src="assets/failure.png">
+    </div>
+
+    <div class="failure-message">
+      <h2>Oh non!</h2>
+      <p>{{ failureMessage }}</p>
+    </div>
+
+    <div class="failure-actions">
+      <button (click)="showHint()" class="hint-button">
+        <div class="button-icon">💡</div>
+        <span>Indice</span>
+      </button>
+
+      <button (click)="retry()" class="retry-button">
+        <div class="button-icon">🔄</div>
+        <span>Recommencer</span>
+      </button>
+    </div>
+  </div>
+</div>

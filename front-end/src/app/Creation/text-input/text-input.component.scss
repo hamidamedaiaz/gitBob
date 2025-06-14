@@ -1,0 +1,17 @@
+.text-input {
+  margin-bottom: 1rem;
+
+  .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: var(--accent-color);
+      outline: none;
+    }
+  }
+}

@@ -1,0 +1,455 @@
+@import '../../../styles/variables';
+
+.profile-management-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  background-color: #f5f7fa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Header Section ===== */
+.header-section {
+  background: linear-gradient(135deg, $blue, darken($blue, 15%));
+  margin: -20px -20px 20px -20px;
+  padding: 20px 30px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    color: white;
+    font-size: 1.8rem;
+    margin: 0 0 20px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.search-filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.search-container {
+  flex: 1;
+  position: relative;
+  min-width: 250px;
+
+  input {
+    width: 100%;
+    padding: 10px 40px 10px 40px;
+    border-radius: 50px;
+    border: none;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  i.fa-search {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .clear-search-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  select {
+    padding: 8px 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    option {
+      background-color: white;
+      color: #333;
+    }
+  }
+}
+
+.create-profile-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  i {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ===== Content Section ===== */
+.content-section {
+  flex: 1;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+
+  .empty-state-icon {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .reset-search-btn {
+    background-color: $blue;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($blue, 10%);
+    }
+  }
+}
+
+/* Profiles Grid */
+.profiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+
+    .profile-card-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.profile-card-header {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid $blue;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.profile-status-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #bdbdbd;
+  color: white;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 30px;
+  font-weight: 500;
+
+  &.active {
+    background-color: #4CAF50;
+  }
+}
+
+.profile-card-content {
+  padding: 20px;
+  flex: 1;
+
+  .profile-name {
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+  }
+
+  .profile-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      font-size: 0.85rem;
+
+      i {
+        color: $blue;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .profile-special-needs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f0f4ff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #555;
+
+    i {
+      color: #FF9800;
+    }
+  }
+}
+
+.profile-card-actions {
+  padding: 10px 20px 20px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+
+  .action-btn {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    i {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    &.edit {
+      background-color: #2196F3;
+
+      &:hover {
+        background-color: #1976D2;
+      }
+    }
+
+    &.stats {
+      background-color: #FF9800;
+
+      &:hover {
+        background-color: #F57C00;
+      }
+    }
+
+    &.delete {
+      background-color: #F44336;
+
+      &:hover {
+        background-color: #D32F2F;
+      }
+    }
+  }
+}
+
+/* arrière‑plan semi‑transparent */
+.confirmation-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* boîte blanche centrée */
+.confirmation-modal {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .modal-buttons {
+    margin-top: 1.5rem;
+    text-align: right;
+
+    button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    .btn-confirm {
+      background-color: #d9534f;
+      color: #fff;
+    }
+
+    .btn-cancel {
+      background-color: #6c757d;
+      color: #fff;
+    }
+  }
+}
+
+
+/* ===== Create/Edit Panels ===== */
+.create-profile-panel,
+.edit-profile-panel {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

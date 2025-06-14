@@ -1,0 +1,22 @@
+<div (click)="selectQuiz()" class="quiz-card">
+  <div class="quiz-header">
+    <div class="quiz-title-container">
+      <h3 class="quiz-title">
+
+        {{ quiz.name }}
+      </h3>
+      <span *ngIf="quiz.theme" class="quiz-theme">{{ quiz.theme }}</span>
+    </div>
+  </div>
+
+  <div class="quiz-card-actions">
+    <button (click)="edit($event)" class="action-btn edit">
+      <i class="fas fa-edit"></i>
+      <span>Modifier</span>
+    </button>
+    <button (click)="delete($event)" class="action-btn delete">
+      <i class="fas fa-trash"></i>
+      <span>Supprimer</span>
+    </button>
+  </div>
+</div>

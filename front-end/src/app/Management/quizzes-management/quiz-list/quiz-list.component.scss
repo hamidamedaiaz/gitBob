@@ -1,0 +1,28 @@
+// Variables locales
+$app-bg-color: #f2f2f2;
+$darkGray: #555555;
+$font-family-system: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, "Helvetica Neue", Arial, sans-serif;
+
+// Animation d’entrée pour chaque carte
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quiz-list {
+  font-family: $font-family-system;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+
+  > * {
+    animation: fadeInUp 0.5s ease both;
+  }
+}

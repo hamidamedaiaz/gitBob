@@ -1,0 +1,19 @@
+<div class="child-stats-list">
+  <h1 style="color:#333;">Statistiques des enfants suivis en érgothérapie</h1>
+
+  <div class="search-filter">
+    <input (ngModelChange)="onSearchChange($event)" [(ngModel)]="searchQuery" placeholder="Rechercher par nom"
+           type="text">
+    <select (change)="onFilterChange(selectedFilter)" [(ngModel)]="selectedFilter">
+      <option value="alpha">Tri alphabétique</option>
+      <option value="date">Date d'inscription</option>
+      <option value="lastQuiz">Dernier quiz effectué</option>
+    </select>
+  </div>
+
+  <div class="child-list">
+    <div (click)="goToChildStats(child.id)" *ngFor="let child of filteredChildren" class="child-item">
+      <app-child-info [child]="child"></app-child-info>
+    </div>
+  </div>
+</div>

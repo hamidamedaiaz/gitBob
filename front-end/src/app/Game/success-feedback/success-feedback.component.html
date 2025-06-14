@@ -1,0 +1,28 @@
+<div class="success-feedback-container">
+  <div class="confetti-container">
+    <div *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]" class="confetti"></div>
+  </div>
+
+  <div class="success-card">
+    <div class="success-icon">
+      <img alt="Success Icon" src="assets/success.png">
+      <div class="stars-container">
+        <div class="star star1">⭐</div>
+        <div class="star star2">⭐</div>
+        <div class="star star3">⭐</div>
+      </div>
+    </div>
+
+    <div class="success-message">
+      <h2>BRAVO!</h2>
+      <p>{{ successMessage }}</p>
+    </div>
+
+    <div class="success-actions">
+      <button (click)="nextQuestion()" class="next-button">
+        <span>Question suivante</span>
+        <div class="button-arrow">→</div>
+      </button>
+    </div>
+  </div>
+</div>

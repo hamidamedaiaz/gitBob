@@ -1,0 +1,132 @@
+<div class="profile-management-container">
+  <div class="header-section">
+    <h1>Gestion des Profils</h1>
+    <div class="search-filter-controls">
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input
+          (input)="onSearchChange($event)"
+          [(ngModel)]="searchQuery"
+          placeholder="Rechercher un profil..."
+          type="text">
+        <button
+          (click)="searchQuery=''; filterProfiles()"
+          *ngIf="searchQuery"
+          class="clear-search-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="filter-container">
+        <label for="profileFilter">Trier par:</label>
+        <select
+          (change)="onFilterChange($event)"
+          [(ngModel)]="selectedFilter"
+          id="profileFilter">
+          <option value="alpha">Ordre alphabétique</option>
+          <option value="date">Date d'inscription</option>
+          <option value="quizzes">Nombre de quiz</option>
+        </select>
+      </div>
+
+      <button (click)="createProfile()" class="create-profile-btn">
+        <i class="fas fa-user-plus"></i>
+        Nouveau profil
+      </button>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div *ngIf="showCreateMode" class="create-profile-panel">
+      <app-profile-create
+        (cancelCreate)="cancelCreate()"
+        (profileCreated)="onProfileCreated($event)">
+      </app-profile-create>
+    </div>
+
+    <div *ngIf="showEditMode && selectedProfile" class="edit-profile-panel">
+      <app-profile-edit
+        (cancelEdit)="cancelEdit()"
+        (profileUpdated)="onProfileUpdated($event)"
+        [profile]="selectedProfile">
+      </app-profile-edit>
+    </div>
+
+    <div *ngIf="!showCreateMode && !showEditMode" class="profiles-list-panel">
+      <div *ngIf="filteredProfiles.length === 0" class="empty-state">
+        <div class="empty-state-icon">
+          <i class="fas fa-user-slash"></i>
+        </div>
+        <h3>Aucun profil trouvé</h3>
+        <p>Aucun profil ne correspond à votre recherche.</p>
+        <button (click)="searchQuery=''; filterProfiles()" *ngIf="searchQuery" class="reset-search-btn">
+          Réinitialiser la recherche
+        </button>
+      </div>
+
+      <div *ngIf="filteredProfiles.length > 0" class="profiles-grid">
+        <div (click)="selectProfile(profile)" *ngFor="let profile of filteredProfiles" class="profile-card">
+          <div class="profile-card-header">
+            <div class="profile-avatar">
+              <img [src]="profile.photoUrl || 'assets/default-profile.jpg'" alt="Avatar">
+            </div>
+            <div [class.active]="profile.quizzesDone > 0" class="profile-status-badge">
+              {{ profile.quizzesDone > 0 ? 'Actif' : 'Nouveau' }}
+            </div>
+          </div>
+
+          <div class="profile-card-content">
+            <h3 class="profile-name">{{ profile.firstName }} {{ profile.lastName }}</h3>
+            <div class="profile-meta">
+              <div class="profile-age">
+                <i class="fas fa-birthday-cake"></i>
+                <span>{{ profile.age }} ans</span>
+              </div>
+              <div class="profile-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ formatDate(profile.registrationDate) }}</span>
+              </div>
+              <div class="profile-quizzes">
+                <i class="fas fa-tasks"></i>
+                <span>{{ profile.quizzesDone }} quiz</span>
+              </div>
+            </div>
+
+            <div *ngIf="profile.specialNeeds" class="profile-special-needs">
+              <i class="fas fa-hand-holding-heart"></i>
+              <span>{{ profile.specialNeeds }}</span>
+            </div>
+          </div>
+
+          <div class="profile-card-actions">
+            <button (click)="editProfile(profile); $event.stopPropagation()" class="action-btn edit">
+              <i class="fas fa-edit"></i>
+              <span>Modifier</span>
+            </button>
+            <button (click)="viewStats(profile); $event.stopPropagation()" class="action-btn stats">
+              <i class="fas fa-chart-bar"></i>
+              <span>Statistiques</span>
+            </button>
+            <button (click)="deleteProfile(profile); $event.stopPropagation()" class="action-btn delete">
+              <i class="fas fa-trash"></i>
+              <span>Supprimer</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showConfirmDelete" class="confirmation-modal-backdrop">
+    <div class="confirmation-modal">
+      <h3>Confirmation de suppression</h3>
+      <p>
+        Êtes‑vous sûr de vouloir supprimer le profil de
+        <strong>{{ profileToDelete?.firstName }} {{ profileToDelete?.lastName }}</strong> ?
+      </p>
+      <div class="modal-buttons">
+        <button (click)="confirmDelete()" class="btn-confirm">Oui</button>
+        <button (click)="cancelDelete()" class="btn-cancel">Non</button>
+      </div>
+    </div>
+  </div>
+</div>

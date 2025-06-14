@@ -1,0 +1,175 @@
+.dropzone {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px dashed #195cbd;
+  border-radius: 15px;
+  padding: 8px;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.target-label {
+  text-align: center;
+  margin-bottom: 10px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.action-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0b100b;
+  font-size: var(--target-label-font-size, 16px);
+}
+
+.audio-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  padding: 0;
+  animation: pulse 2s infinite;
+
+  &:hover {
+    background-color: #45a049;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  i {
+    font-size: 14px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(76, 175, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+.target-content {
+  flex: 1;
+  display: flex;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.action-image {
+  width: 50%;
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8;
+}
+
+.drop-area {
+  width: 50%;
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(240, 240, 240, 0.5);
+  border-left: 1px dashed #ccc;
+  transition: all 0.3s ease;
+}
+
+.plus-icon {
+  font-size: 40px;
+  color: #ccc;
+}
+
+.placeholder-image, .dropped-image {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  filter: brightness(var(--game-brightness, 100%));
+}
+
+.dropzone.over {
+  background-color: rgba(230, 240, 255, 0.9);
+  border: 2px solid #075acd;
+  transform: scale(1.02);
+}
+
+.dropzone.filled {
+  border: 2px solid #195cbd;
+
+  .drop-area {
+    background-color: rgba(240, 255, 240, 0.5);
+  }
+}
+
+.dropzone.highlighted {
+  border-color: #4CAF50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
+}
+
+.debug-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 0 4px 0 4px;
+  z-index: 10;
+}
+
+.dropzone.over {
+  background-color: rgba(230, 240, 255, 0.9);
+  border: 2px solid #075acd;
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(7, 90, 205, 0.5);
+
+  .drop-area {
+    animation: target-highlight 1s infinite;
+  }
+}
+
+@keyframes target-highlight {
+  0% {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}

@@ -1,0 +1,40 @@
+<div *ngIf="profile" class="profile-card">
+  <div class="card-header">
+    <div class="photo-wrapper">
+      <img [alt]="'Photo de ' + profile.firstName" [src]="profile.photoUrl"/>
+    </div>
+    <h2>{{ profile.firstName }} {{ profile.lastName }}</h2>
+  </div>
+
+  <div class="card-body">
+    <div class="info-row">
+      <span class="label">Âge</span>
+      <span class="value">{{ profile.age }} ans</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Inscription</span>
+      <span class="value">{{ profile.registrationDate | date:'longDate' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Quiz réalisés</span>
+      <span class="value">{{ profile.quizzesDone }}</span>
+    </div>
+
+    <div *ngIf="profile.specialNeeds" class="info-row">
+      <span class="label">Besoin spécifique</span>
+      <span class="value">{{ profile.specialNeeds }}</span>
+    </div>
+    <div *ngIf="profile.diagnosisNotes" class="info-row">
+      <span class="label">Notes diagnostic</span>
+      <span class="value">{{ profile.diagnosisNotes }}</span>
+    </div>
+    <div *ngIf="profile.therapyGoals" class="info-row">
+      <span class="label">Objectifs thérapie</span>
+      <span class="value">{{ profile.therapyGoals }}</span>
+    </div>
+    <div *ngIf="profile.favoriteQuizIds?.length" class="info-row">
+      <span class="label">Quiz favoris</span>
+      <span class="value"></span>
+    </div>
+  </div>
+</div>

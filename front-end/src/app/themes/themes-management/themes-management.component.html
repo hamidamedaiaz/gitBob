@@ -1,0 +1,48 @@
+<div id="themes-management">
+  <h1 class="page-title">Page de gestion des thèmes</h1>
+
+  <h2>Thèmes existants</h2>
+  <div *ngIf="themes.length > 0; else noThemes" class="themes-grid">
+    <app-theme
+      (themeDeleted)="onDeleteTheme($event)"
+      *ngFor="let theme of themes; let i = index"
+      [borderColor]="getBorderColor(i)"
+      [showButton]="false"
+      [showDeleteButton]="true"
+      [theme]="theme">
+
+    </app-theme>
+  </div>
+  <ng-template #noThemes>
+    <div class="empty-state">
+      <h3>Aucun thème trouvé</h3>
+      <p>Commencez par ajouter un nouveau thème pour remplir votre bibliothèque.</p>
+    </div>
+  </ng-template>
+
+
+  <div class="add-theme-panel">
+    <h2>Ajouter un nouveau thème</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="addForm">
+      <div>
+        <label for="title">Titre</label>
+        <input formControlName="title" id="title"/>
+        <div *ngIf="addForm.get('title')?.invalid && addForm.get('title')?.touched" class="error">
+          Titre requis (min. 3 caractères).
+        </div>
+      </div>
+
+      <div>
+        <label for="imageUrl">URL de l'image</label>
+        <input formControlName="imageUrl" id="imageUrl"/>
+        <div *ngIf="addForm.get('imageUrl')?.invalid && addForm.get('imageUrl')?.touched" class="error">
+          URL requise.
+        </div>
+      </div>
+
+      <button [disabled]="addForm.invalid" type="submit">Ajouter</button>
+    </form>
+  </div>
+
+
+</div>

@@ -1,0 +1,12 @@
+<div *ngIf="show" class="game-completion-modal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content">
+    <h1>BRAVO!</h1>
+    <p>Tu as terminé tous les quiz avec succès!</p>
+    <div class="score-display">Score final: {{ finalScore }}</div>
+    <div class="modal-buttons">
+      <button (click)="onRestartClick()" class="btn-restart">Recommencer</button>
+      <button (click)="onHomeClick()" class="btn-home">Menu Principal</button>
+    </div>
+  </div>
+</div>

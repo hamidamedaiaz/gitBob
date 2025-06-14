@@ -1,0 +1,39 @@
+<div class="profile-list-container">
+
+  <img alt="Background" class="background-img" src="assets/homeBackground.jpg">
+  <div class="profile-list-header">
+    <app-profile-search (searchTerms)="onSearch($event)"></app-profile-search>
+  </div>
+
+  <div class="profile-header">
+    <h2>Qui est là?</h2>
+  </div>
+
+  <div class="profiles-section">
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Chargement des profils...</p>
+    </div>
+    <div class="profiles-section">
+      <div *ngIf="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Chargement des profils...</p>
+      </div>
+
+      <div *ngIf="!loading && filteredProfiles.length === 0" class="no-results">
+        <i class="fas fa-search-minus no-results-icon"></i>
+        <p>Aucun profil ne correspond à "{{ searchTerm }}"</p>
+        <button (click)="onSearch('')" class="reset-search-btn">Réinitialiser la recherche</button>
+      </div>
+
+
+      <div *ngIf="!loading && filteredProfiles.length > 0" class="profiles-grid">
+        <app-profile-card
+          (profileSelected)="onProfileSelected($event)"
+          *ngFor="let profile of filteredProfiles"
+          [profile]="profile">
+        </app-profile-card>
+      </div>
+    </div>
+  </div>
+</div>

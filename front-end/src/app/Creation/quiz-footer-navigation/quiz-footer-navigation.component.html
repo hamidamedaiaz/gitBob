@@ -1,0 +1,37 @@
+<!-- Dans front-end/src/app/Creation/quiz-footer-navigation/quiz-footer-navigation.component.html -->
+<!-- Remplacez le contenu existant par : -->
+
+<div class="wizard-footer">
+  <button
+    (click)="prevStep()"
+    *ngIf="currentStep > 1"
+    class="btn btn-secondary"
+    type="button"
+    [disabled]="isLoading"
+  >
+    <i class="fas fa-arrow-left"></i> Précédent
+  </button>
+
+  <div class="spacer"></div>
+
+  <button
+    (click)="nextStep()"
+    *ngIf="currentStep < 3"
+    [disabled]="!canProceedToNextStep() || isLoading"
+    class="btn btn-primary"
+    type="button"
+  >
+    Suivant <i class="fas fa-arrow-right"></i>
+  </button>
+
+  <button
+    (click)="saveQuiz()"
+    *ngIf="currentStep === 3"
+    class="btn btn-success"
+    type="button"
+    [disabled]="isLoading"
+  >
+    <i class="fas fa-save"></i> 
+    {{ isEditMode ? 'Mettre à jour' : 'Valider et Envoyer' }}
+  </button>
+</div>

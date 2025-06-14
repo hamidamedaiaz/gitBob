@@ -1,0 +1,68 @@
+<form (ngSubmit)="saveConfig()" [formGroup]="configForm">
+  <div id="config-container">
+    <h2 class="title">Page de paramétrage de quiz</h2>
+    <div class="split-container">
+      <div class="left-panel">
+        <div id="font-size-container">
+          <app-slider [max]="50" [min]="10" [step]="1" formControlName="taillePolice"
+                      label="Taille de la police"></app-slider>
+        </div>
+        <div id="image-size-container">
+          <app-slider [max]="200" [min]="10" [step]="5" formControlName="tailleImage"
+                      label="Taille de l'image (%)"></app-slider>
+        </div>
+        <div id="brightness-container">
+          <app-slider [max]="200" [min]="0" [step]="5" formControlName="luminosite" label="Luminosité (%)"></app-slider>
+        </div>
+        <hr>
+        <div class="live-preview">
+          <p [style.fontSize.px]="configForm.get('taillePolice')?.value">
+            Aperçu texte ({{ configForm.get('taillePolice')?.value }} px)
+          </p>
+          <img
+            [ngStyle]="{'filter': 'brightness(' + configForm.get('luminosite')?.value + '%)'}"
+            [style.width.%]="configForm.get('tailleImage')?.value"
+            alt="Aperçu dynamique"
+            src="https://openclipart.org/image/800px/324807"
+          />
+        </div>
+        <div id="feedback-fail-container">
+          <app-form-input formControlName="feedbackEchec" id="feedbackEchec" label="Feedback échec"
+                          placeholder="Message d'échec"></app-form-input>
+        </div>
+        <div id="feedback-success-container">
+          <app-form-input formControlName="feedbackSucces" id="feedbackSucces" label="Feedback succès"
+                          placeholder="Message de succès"></app-form-input>
+        </div>
+      </div>
+      <div class="right-panel">
+        <div id="hint-form-container">
+          <h3>Configuration de l'indice</h3>
+          <app-hint-form *ngIf="hint" [group]="hint"></app-hint-form>
+        </div>
+        <div id="hint-choice-container">
+          <h3>Activer l'indice</h3>
+          <app-yes-or-no-input formControlName="typeIndice" groupName="typeIndice"
+                               id="typeIndice"></app-yes-or-no-input>
+        </div>
+        <div id="chrono-display-container">
+          <h3>Afficher chronomètre</h3>
+          <app-yes-or-no-input formControlName="chronometre" groupName="chronometre"
+                               id="chronometre"></app-yes-or-no-input>
+        </div>
+        <div id="random-mode-container">
+          <h3>Mode aléatoire</h3>
+          <app-yes-or-no-input formControlName="ordreAleatoire" groupName="ordreAleatoire"
+                               id="ordreAleatoire"></app-yes-or-no-input>
+        </div>
+        <div id="background-selector-container">
+          <h3>Arrière-plan</h3>
+          <app-background-selector formControlName="background"></app-background-selector>
+        </div>
+        <div id="save-button-container">
+          <button type="submit">Soumettre</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

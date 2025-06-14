@@ -1,0 +1,12 @@
+<div [class.colliding]="isColliding" [ngStyle]="obstacleStyle" class="obstacle">
+  <div [class.moving]="obstacle.type === 'moving'" class="obstacle-inner">
+    <!-- PNG Image obstacle -->
+    <img
+      [src]="obstacle.imageUrl || 'assets/obstacle-default.png'"
+      [alt]="'Obstacle ' + obstacle.id"
+      class="obstacle-image"
+      [style.filter]="obstacle.color ? 'hue-rotate(' + getHueRotation(obstacle.color) + 'deg)' : 'none'"
+    />
+
+  </div>
+</div>

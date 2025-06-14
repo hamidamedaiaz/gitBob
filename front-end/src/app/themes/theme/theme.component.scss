@@ -1,0 +1,180 @@
+.theme-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 4px solid;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 10px;
+  background-color: white;
+  width: 220px;
+  height: 280px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.theme-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.theme-image {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.theme-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.theme-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+}
+
+.select-button {
+  background-color: #FFD700;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+}
+
+.select-button:hover {
+  background-color: #FFC107;
+}
+
+.delete-button {
+  margin-top: 0.6rem;
+  padding: 0.5rem 1rem;
+  background: #c86433; /* Orange foncé */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.delete-button:hover {
+  background: #cc0000; /* Rouge foncé au survol */
+  transform: translateY(-2px);
+}
+
+.delete-button:active {
+  transform: translateY(0);
+}
+
+/* Fond sombre derrière la modale */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Animation d'apparition de la modale */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Boîte de confirmation */
+.confirm-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  animation: zoomIn 0.3s ease;
+}
+
+/* Animation zoom légère */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.confirm-modal h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.confirm-modal p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-oui,
+.btn-non {
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.btn-oui {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-oui:hover {
+  background-color: #c82333;
+}
+
+.btn-non {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-non:hover {
+  background-color: #5a6268;
+}

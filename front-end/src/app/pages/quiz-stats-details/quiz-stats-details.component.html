@@ -1,0 +1,44 @@
+<div class="quiz-details-card">
+  <div class="card-header">
+    <h2>Statistiques du {{ quizStats.name }}</h2>
+  </div>
+  <div class="card-body">
+    <div class="quiz-info">
+      <p><strong>Thème :</strong> {{ quizStats.theme }}</p>
+      <p><strong>Date :</strong> {{ quizStats.date | date:'longDate' }}</p>
+      <p><strong>Score :</strong> {{ quizStats.score }} %</p>
+      <p><strong>Temps total :</strong> {{ quizStats.timeEmitted }} s</p>
+      <p><strong>Temps moyen/question :</strong> {{ quizStats.averageResponseTime }} s</p>
+      <p><strong>Total questions :</strong> {{ quizStats.totalQuestions }}</p>
+      <p><strong>Précision :</strong> {{ quizStats.responseAccuracy }} %</p>
+      <p><strong>Aides utilisées :</strong> {{ quizStats.totalHelpUsed }}</p>
+      <p><strong>Temps moyen réaction :</strong> {{ quizStats.averageReactionTime }} s</p>
+    </div>
+    <div class="question-table">
+      <h3>Résultats par question</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+          <tr>
+            <th>Question</th>
+            <th>Temps (s)</th>
+            <th>Aide utilisée</th>
+            <th>Résultat</th>
+            <th>Réaction (s)</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let q of quizStats.questions">
+            <td>{{ q.questionNumber }}</td>
+            <td>{{ q.responseTime }}</td>
+            <td>{{ q.helpUsed ? 'Oui' : 'Non' }}</td>
+            <td>{{ q.correct ? 'Correcte' : 'Incorrecte' }}</td>
+            <td>{{ q.reactionTime || '-' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <app-quiz-stats-charts [quizStats]="quizStats"></app-quiz-stats-charts>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="quiz-stats">
+  <h2>Liste des Quiz Stats effectués</h2>
+  <ul>
+    <li *ngFor="let quiz of quizzes">
+      <div (click)="goToQuizDetails(quiz.id)" class="quiz-item">
+        <span class="quiz-name">{{ quiz.name }}</span>
+        <span class="quiz-theme">{{ quiz.theme }}</span>
+        <span class="quiz-date">{{ quiz.date | date:'shortDate' }}</span>
+        <span class="quiz-score">Score: {{ quiz.score }}</span>
+        <span class="quiz-time">Temps: {{ quiz.timeEmitted }} s</span>
+      </div>
+    </li>
+  </ul>
+</div>

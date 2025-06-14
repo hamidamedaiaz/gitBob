@@ -1,0 +1,131 @@
+#themes-management {
+  padding: 2rem;
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+
+  .page-title {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .themes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    justify-items: center;
+  }
+
+  .no-themes-message {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #777;
+    padding: 2rem;
+  }
+
+  .add-theme-panel {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 2rem auto 0;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+
+      label {
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+        font-size: 1rem;
+      }
+
+      input {
+        padding: 0.7rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #007BFF;
+          outline: none;
+        }
+      }
+
+      .error {
+        color: red;
+        font-size: 0.9rem;
+      }
+
+      button[type="submit"] {
+        padding: 0.8rem;
+        background: #000000;
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+          background: #0b100b;
+        }
+
+        &:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  margin-top: 2rem;
+  background: #f9f9f9;
+  border-radius: 16px;
+  border: 2px dashed #ccc;
+  animation: fadeIn 0.5s ease;
+}
+
+.empty-state h3 {
+  font-size: 1.8rem;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: #777;
+  max-width: 400px;
+  text-align: center;
+}
+
+
+
+

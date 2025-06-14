@@ -1,0 +1,27 @@
+/* styles.scss */
+@import './styles/variables.scss';
+
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: $app-background-color;
+}
+
+app-root {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* For components that need internal scrolling */
+.scrollable-content {
+  overflow-y: auto;
+  height: 100%;
+}

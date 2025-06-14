@@ -1,0 +1,54 @@
+<div class="simple-edit-container">
+  <h2>Modifier le profil</h2>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+    <div class="form-group">
+      <label for="firstName">Prénom</label>
+      <input class="form-control" formControlName="firstName" id="firstName" type="text">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Nom</label>
+      <input class="form-control" formControlName="lastName" id="lastName" type="text">
+    </div>
+
+    <div class="form-group">
+      <label for="age">Âge</label>
+      <input class="form-control" formControlName="age" id="age" type="number">
+    </div>
+
+    <div class="form-group">
+      <label for="specialNeeds">Besoins spécifiques</label>
+      <input class="form-control" formControlName="specialNeeds" id="specialNeeds" type="text">
+    </div>
+
+    <div class="form-group">
+      <label for="diagnosisNotes">Notes de diagnostic</label>
+      <textarea class="form-control" formControlName="diagnosisNotes" id="diagnosisNotes" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="therapyGoals">Objectifs de thérapie</label>
+      <textarea class="form-control" formControlName="therapyGoals" id="therapyGoals" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Quiz préférés</label>
+      <div class="simple-quiz-list">
+        <div *ngFor="let quiz of availableQuizzes" class="simple-quiz-item">
+          <input
+            (change)="toggleFavoriteQuiz(quiz.id)"
+            [checked]="isQuizFavorite(quiz.id)"
+            [id]="'quiz-' + quiz.id"
+            type="checkbox">
+          <label [for]="'quiz-' + quiz.id">{{ quiz.name }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button (click)="cancel()" class="btn-cancel" type="button">Annuler</button>
+      <button class="btn-save" type="submit">Enregistrer</button>
+    </div>
+  </form>
+</div>

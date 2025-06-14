@@ -1,0 +1,122 @@
+.game-home-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 5rem 0;
+  box-sizing: border-box;
+}
+
+.background-img {
+  position: fixed; /* Change from absolute to fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.game-title {
+  color: #2a6af0;
+  font-size: 2.5rem;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+  margin-top: 2rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.secondary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+  position: relative;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .icon {
+    margin-right: 10px;
+    font-size: 1.5rem; /* Adjust icon size */
+    color: #2a6af0; /* Icon color */
+  }
+}
+
+.play-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+  position: relative;
+  margin-top: 20vh; /* 20% de la hauteur de la fenêtre */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .play-icon {
+    margin-right: 10px;
+  }
+
+  .play-text {
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .game-title {
+    font-size: 2rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .play-button {
+    padding: 0.75rem 2rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 1.75rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .play-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 1.1rem;
+  }
+}

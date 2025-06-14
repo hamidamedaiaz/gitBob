@@ -1,0 +1,29 @@
+<form [formGroup]="form" class="hint-form">
+  <label for="hintType">Type d'indice :</label>
+  <select formControlName="hintType" id="hintType">
+    <option disabled value="">-- Choisissez un type d'indice --</option>
+    <option *ngFor="let opt of hintTypeOptions" [value]="opt.value">
+      {{ opt.text }}
+    </option>
+  </select>
+
+  <div *ngIf="showText" class="hint-section">
+    <label for="textInput">Texte :</label>
+    <textarea cols="30" formControlName="text" id="textInput" placeholder="Entrez le texte ici..." rows="3"></textarea>
+  </div>
+
+  <div *ngIf="showImage" class="hint-section">
+    <label for="imageInput">Image :</label>
+    <input accept="image/*" formControlName="image" id="imageInput" type="file"/>
+  </div>
+
+  <div *ngIf="showAudio" class="hint-section">
+    <label for="audioInput">Audio :</label>
+    <input accept="audio/*" formControlName="audio" id="audioInput" type="file"/>
+  </div>
+
+  <div *ngIf="showVideo" class="hint-section">
+    <label for="videoInput">Vidéo :</label>
+    <input accept="video/*" formControlName="video" id="videoInput" type="file"/>
+  </div>
+</form>
