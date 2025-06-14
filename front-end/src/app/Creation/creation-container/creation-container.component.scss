@@ -1,25 +1,165 @@
+// front-end/src/app/Creation/creation-container/creation-container.component.scss
 
+/* ===== VARIABLES LOCALES ===== */
+$primary-color: #4a6bff;
+$primary-dark: #3a55d9;
+$success-color: #4CAF50;
+$error-color: #f44336;
+$text-dark: #333;
+$text-medium: #666;
+$border-color: #e0e0e0;
+$background-light: #f8f9fa;
+$white: #ffffff;
+$shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.1);
+$shadow-strong: 0 8px 25px rgba(0, 0, 0, 0.15);
+$border-radius: 8px;
+$transition: all 0.3s ease;
+
+/* ===== CONTENEUR PRINCIPAL - CORRECTION SCROLL ===== */
 .wizard-container {
   max-width: 1200px;
   margin: 2rem auto;
   background-color: #f8f9fa;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: $shadow-strong;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 80vh;
+  
+  /* ✅ CORRECTION : Hauteur fixe pour permettre le scroll interne */
+  height: calc(100vh - 4rem);
+  min-height: 600px;
 }
 
-
+/* ===== CONTENU DES ÉTAPES - CORRECTION SCROLL ===== */
 .wizard-content {
   flex: 1;
   padding: 2rem;
+  
+  /* ✅ CORRECTION : Permettre le scroll vertical */
   overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Personnaliser le scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: $primary-color $background-light;
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $background-light;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $primary-color;
+    border-radius: 4px;
+    
+    &:hover {
+      background: $primary-dark;
+    }
+  }
 }
-// Add these styles to your existing creation-container.component.scss
 
-// Alert Messages
+.wizard-step {
+  animation: fadeIn 0.4s ease-in-out;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ===== PIED DE PAGE - CORRECTION AFFICHAGE BOUTONS ===== */
+.wizard-footer {
+  background-color: #f8f9fa;
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  gap: 1rem;
+  
+  /* ✅ CORRECTION : S'assurer que le footer reste en bas */
+  flex-shrink: 0;
+  min-height: 80px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ===== BOUTONS - CORRECTION AFFICHAGE ===== */
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: $transition;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  text-decoration: none;
+  
+  /* ✅ CORRECTION : S'assurer que les boutons sont visibles */
+  min-width: 120px;
+  justify-content: center;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  &:focus-visible {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: white;
+  
+  &:hover:not(:disabled) {
+    background-color: $primary-dark;
+    transform: translateY(-2px);
+    box-shadow: $shadow-light;
+  }
+}
+
+.btn-secondary {
+  background-color: #f8f9fa;
+  color: #444;
+  border: 1px solid #ddd;
+  
+  &:hover:not(:disabled) {
+    background-color: #e9ecef;
+  }
+}
+
+.btn-success {
+  background-color: $success-color;
+  color: white;
+  
+  &:hover:not(:disabled) {
+    background-color: #43a047;
+    transform: translateY(-2px);
+    box-shadow: $shadow-light;
+  }
+}
+
+/* ===== MESSAGES D'ALERTE ===== */
 .alert {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -28,17 +168,17 @@
   align-items: center;
   gap: 0.5rem;
   font-weight: 500;
-
+  
   i {
     font-size: 1.2rem;
   }
-
+  
   &.alert-success {
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
   }
-
+  
   &.alert-error {
     background-color: #f8d7da;
     color: #721c24;
@@ -46,7 +186,7 @@
   }
 }
 
-// Loading Overlay
+/* ===== OVERLAY DE CHARGEMENT ===== */
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -65,14 +205,20 @@
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-
+  box-shadow: $shadow-strong;
+  
   i {
     font-size: 2rem;
-    color: #4a6bff;
+    color: $primary-color;
     margin-bottom: 1rem;
+    animation: spin 1s linear infinite;
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   }
-
+  
   p {
     margin: 0;
     font-size: 1.1rem;
@@ -80,70 +226,48 @@
   }
 }
 
-// Disable interactions when loading
+/* ===== ÉTAT DE CHARGEMENT ===== */
 .wizard-container.loading {
   pointer-events: none;
   opacity: 0.7;
 }
 
-.wizard-step {
-  animation: fadeIn 0.4s ease-in-out;
-}
-
-
-.wizard-footer {
-  background-color: #f8f9fa;
-  padding: 1.25rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid #eee;
-}
-
-.spacer {
-  flex: 1;
-}
-
-
-.btn-primary {
-  background-color: #4a6bff;
-  color: white;
-  border: none;
-
-  &:hover:not(:disabled) {
-    background-color: #3a55d9;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .wizard-container {
+    margin: 1rem;
+    height: calc(100vh - 2rem);
+    min-height: 500px;
+  }
+  
+  .wizard-content {
+    padding: 1rem;
+  }
+  
+  .wizard-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    
+    .btn {
+      width: 100%;
+      min-width: unset;
+    }
+    
+    .spacer {
+      display: none;
+    }
   }
 }
 
-.btn-secondary {
-  background-color: #f8f9fa;
-  color: #444;
-  border: 1px solid #ddd;
-
-  &:hover {
-    background-color: #e9ecef;
+@media (max-width: 480px) {
+  .wizard-container {
+    margin: 0.5rem;
+    height: calc(100vh - 1rem);
+  }
+  
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
   }
 }
-
-.btn-success {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-
-  &:hover {
-    background-color: #43a047;
-  }
-}
-
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-

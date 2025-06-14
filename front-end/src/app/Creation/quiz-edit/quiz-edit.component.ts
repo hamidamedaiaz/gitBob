@@ -89,7 +89,7 @@ export class QuizEditComponent implements OnInit {
         this.themes = themes;
         this.themesLoaded = true;
         
-        // Load the quiz data after themes are loaded
+        // ✅ CORRECTION : Utiliser la nouvelle fonction loadQuizForEdit
         this.loadQuizData();
       },
       error: (error) => {
@@ -100,56 +100,58 @@ export class QuizEditComponent implements OnInit {
     });
   }
 
+  // ✅ CORRECTION : Nouvelle méthode pour charger les données du quiz
   private loadQuizData(): void {
     this.isLoading = true;
     
-    this.quizBuilderService.getQuizById(this.quizId).subscribe({
-      next: (quiz: Quiz) => {
-        console.log('Quiz loaded for editing:', quiz);
-        this.originalQuiz = quiz;
-        this.populateFormWithQuizData(quiz);
+    // Utiliser la nouvelle fonction loadQuizForEdit du service
+    this.quizBuilderService.loadQuizForEdit(this.quizId).subscribe({
+      next: () => {
+        console.log('Quiz data loaded for editing');
+        
+        // ✅ S'abonner aux données une fois qu'elles sont chargées
+        this.subscribeToQuizData();
+        
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading quiz:', error);
+        console.error('Error loading quiz for edit:', error);
         this.errorMessage = 'Erreur lors du chargement du quiz';
         this.isLoading = false;
       }
     });
   }
 
-  private populateFormWithQuizData(quiz: Quiz): void {
-    // Populate general info form
-    this.generalInfoForm.patchValue({
-      name: quiz.name,
-      theme: quiz.theme,
-      numberOfQuestions: quiz.questions?.length || 1
+  // ✅ CORRECTION : S'abonner aux données du service après le chargement
+  private subscribeToQuizData(): void {
+    // S'abonner aux données de création
+    this.quizBuilderService.creationData$.pipe(take(1)).subscribe(creationData => {
+      if (creationData.name) {
+        console.log('Populating form with loaded data:', creationData);
+        
+        this.generalInfoForm.patchValue({
+          name: creationData.name,
+          theme: creationData.theme,
+          numberOfQuestions: creationData.questions?.length || 1
+        });
+
+        // ✅ Assigner les questions chargées
+        if (creationData.questions && creationData.questions.length > 0) {
+          this.questions = [...creationData.questions];
+          console.log('Questions assigned for editing:', this.questions);
+        } else {
+          // Fallback si pas de questions
+          this.questions = [this.createQuestion()];
+        }
+      }
     });
 
-    // Populate questions
-    if (quiz.questions && quiz.questions.length > 0) {
-      this.questions = quiz.questions.map(q => ({
-        id: q.id || 0,
-        type: q.type,
-        pairsCount: q.pairsCount,
-        pairs: q.pairs || []
-      }));
-    } else {
-      // Initialize with default question if none exist
-      this.questions = [this.createQuestion()];
-    }
-
-    // Populate config data
-    if (quiz.config) {
-      this.configData = quiz.config;
-      this.quizBuilderService.setConfigData(quiz.config);
-    }
-
-    // Set creation data in the service
-    this.quizBuilderService.setCreationData({
-      name: quiz.name,
-      theme: quiz.theme,
-      questions: this.questions
+    // S'abonner aux données de configuration
+    this.quizBuilderService.configData$.pipe(take(1)).subscribe(configData => {
+      if (configData) {
+        this.configData = { ...configData };
+        console.log('Config data loaded:', this.configData);
+      }
     });
   }
 
@@ -248,7 +250,8 @@ export class QuizEditComponent implements OnInit {
     this.successMessage = '';
     this.saveCurrentData();
 
-    const finalQuiz = this.quizBuilderService.getFinalQuizSync();
+    // ✅ Utiliser getFinalQuizForUpdate au lieu de getFinalQuizSync
+    const finalQuiz = this.quizBuilderService.getFinalQuizForUpdate();
 
     if (!finalQuiz.name || !finalQuiz.theme) {
       this.errorMessage = 'Veuillez remplir le nom et le thème du quiz';
